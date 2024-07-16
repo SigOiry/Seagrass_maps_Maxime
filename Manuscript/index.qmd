@@ -25,3 +25,9 @@ date: last-modified
 bibliography: library.bib
 ---
 
+```{r library}
+library(tidyverse)
+library(terra)
+
+```
+
