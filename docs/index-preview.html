@@ -312,10 +312,13 @@ L'objet suivant est masqué depuis 'package:tidyr':
 <h1 data-number="1"><span class="header-section-number">1</span> Materiel &amp; Methods</h1>
 <section id="seagrass-mapping-using-sentinel-2" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="seagrass-mapping-using-sentinel-2"><span class="header-section-number">1.1</span> Seagrass mapping using Sentinel-2</h2>
-<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted)</p>
+<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed.</p>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Copernicus_Sentinel" class="csl-entry" role="listitem">
 Copernicus. 2024. <span>“Copernicus Open Access Hub.”</span> <a href="https://browser.dataspace.copernicus.eu/">https://browser.dataspace.copernicus.eu/</a>.
+</div>
+<div id="ref-rouse1974monitoring" class="csl-entry" role="listitem">
+Rouse, John Wilson, Rüdiger H Haas, John A Schell, Donald W Deering, et al. 1974. <span>“Monitoring Vegetation Systems in the Great Plains with ERTS.”</span> <em>NASA Spec. Publ</em> 351 (1): 309.
 </div>
 </div>
 </section>
