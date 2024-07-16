@@ -63,6 +63,35 @@ div.csl-indent {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta name="citation_title" content="Seagrass mapping in two mudflats in the Auray River">
 <meta name="citation_abstract" content="Maps of seagrass in two sites in the Auray River. These two sites were studied by Maxime Daviray during his PhD. Seagrass appeared very quickly during his PhD. This work aims to describe this rapid evolution of seagrasses.
@@ -76,6 +105,7 @@ div.csl-indent {
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Copernicus Open Access Hub;,citation_author=Copernicus;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://browser.dataspace.copernicus.eu/;">
 <meta name="citation_reference" content="citation_title=Monitoring vegetation systems in the Great Plains with ERTS;,citation_author=John Wilson Rouse;,citation_author=Rüdiger H Haas;,citation_author=John A Schell;,citation_author=Donald W Deering;,citation_author=others;,citation_publication_date=1974;,citation_cover_date=1974;,citation_year=1974;,citation_issue=1;,citation_volume=351;,citation_journal_title=NASA Spec. Publ;">
+<meta name="citation_reference" content="citation_title=Decadal increase in the ecological status of a North-Atlantic intertidal seagrass meadow observed with multi-mission satellite time-series;,citation_author=Maria Laura Zoffoli;,citation_author=Pierre Gernez;,citation_author=Laurent Godet;,citation_author=Steef Peters;,citation_author=Simon Oiry;,citation_author=Laurent Barillé;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_volume=130;,citation_journal_title=Ecological Indicators;,citation_publisher=Elsevier;">
 </head>
 
 <body>
@@ -164,7 +194,10 @@ div.csl-indent {
 <h1 data-number="1"><span class="header-section-number">1</span> Materiel &amp; Methods</h1>
 <section id="seagrass-mapping-using-sentinel-2" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="seagrass-mapping-using-sentinel-2"><span class="header-section-number">1.1</span> Seagrass mapping using Sentinel-2</h2>
-<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed.</p>
+<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. NDVI values have then been transformed into Seagrass Percent Cover (SPC) using the equation from , <a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>. SPC values below 20%, corresponding to low biomass pixels with a high risk of confusion with other vegetation classes, have been removed from the rest of the analysis.</p>
+<p><span id="eq-std"><span class="math display">\[
+SPC = 172.06*NDVI-
+\tag{1}\]</span></span></p>
 
 </section>
 </section>
