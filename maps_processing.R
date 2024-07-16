@@ -18,6 +18,7 @@ img_list <- list.files("Data/ICECREAMS/", pattern = ".tif", recursive = TRUE, fu
 mask <- "Data/mask/Intertidal_mask_Auray.shp" %>% 
   vect()
 
+mask_site <- mask[which(mask$Site_Name == unique(mask$Site_Name)[site_i])]
 
 
 # Loop through each image and each site to process the data
@@ -56,16 +57,35 @@ for(img_i in 1:nrow(img_list)){
   rm(mask_site)
 }
 
+### Retrieve the area of each sites
+area <- mask %>% 
+  sf::st_as_sf() %>% 
+    sf::st_area() %>% 
+  as.numeric() %>% 
+  as.data.frame() %>% 
+  rename(area = ".") %>% 
+  mutate(site = unique(output$site))
+
+
 cols <- c("Kerouarc'h" = "#399E5A", "Fort Espagnol" = "#5ABCB9")
 
 
+### Boxplot of SPC
 output %>% 
   ggplot() + 
-  geom_boxplot(aes(x = year, y = SPC20Unknown, color = site)) +
+  geom_boxplot(aes(x = year, y = SPC20Unknown, color = site), alpha = 0.1) +
+  geom_smooth(aes(x = year, y = SPC20Unknown, color = site, fill = site, group = site), 
+              method = "gam",
+              formula = y ~ s(x, k = 8),
+              alpha = 0.1
+  )+
   ylab("Seagrass Cover (%)") +
   xlab("Year") +
+  ylim(0,100)+
   scale_colour_manual(values = cols) +
-  labs(color = "Sites :") + 
+  scale_fill_manual(values = cols) +
+  labs(color = "Sites :",
+       fill = "Sites :") + 
   theme_bw() +
   theme(
     axis.title = element_text(size = 20),
@@ -76,18 +96,26 @@ output %>%
   )
 
 
-
+### Extent over time
 output %>% 
   group_by(year, site) %>% 
-  reframe(extent = sum(SPC20Unknown*n())*(10^-6)) %>% 
-  ggplot(aes(x = year, y = extent, color = site))+
+  reframe(extent = sum(SPC20Unknown)*(10^-6),
+          n = n()) %>% 
+  ggplot(aes(x = year, y = extent, color = site, group = site))+
   geom_point()+
-  geom_smooth(method = "glm")+
+  geom_smooth(aes(x = year, y = extent, color = site, fill = site, group = site), 
+              method = "gam",
+              formula = y ~ s(x, k = 8),
+              alpha = 0.1
+  )+
   scale_y_log10() +
   ylab("Seagrass Extent (km²)") +
   xlab("Year") +
   scale_colour_manual(values = cols) +
-  labs(color = "Sites :") + 
+  scale_fill_manual(values = cols) +
+  
+  labs(color = "Sites :",
+       fill = "Sites :") + 
   theme_bw() +
   theme(
     axis.title = element_text(size = 20),
@@ -96,4 +124,35 @@ output %>%
     legend.title = element_text(size = 17),
     legend.position = "top"
   )
+
+
+### Proportion of each site over time
+output %>% 
+  group_by(year, site) %>% 
+  reframe(extent = sum(SPC20Unknown)) %>%
+  ungroup() %>% 
+  left_join(area, by = "site") %>% 
+  mutate(prop = 100*extent/area) %>% 
+  ggplot()+
+  geom_point(aes(x = year, y = prop, color = site, group = site))+
+  geom_smooth(aes(x = year, y = prop, color = site, fill = site, group = site), 
+              method = "gam",
+              formula = y ~ s(x, k = 8),
+              alpha = 0.1
+              )+
+  ylab("Total cover of the site (%)") +
+  xlab("Year") +
+  scale_colour_manual(values = cols) +
+  scale_fill_manual(values = cols) +
+  labs(color = "Sites :",
+       fill = "Sites :") + 
+  theme_bw() +
+  theme(
+    axis.title = element_text(size = 20),
+    axis.text = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(size = 17),
+    legend.position = "top"
+  )
+
 
