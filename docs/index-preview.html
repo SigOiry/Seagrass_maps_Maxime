@@ -313,9 +313,62 @@ L'objet suivant est masqué depuis 'package:tidyr':
 <h1 data-number="1"><span class="header-section-number">1</span> Materiel &amp; Methods</h1>
 <section id="seagrass-mapping-using-sentinel-2" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="seagrass-mapping-using-sentinel-2"><span class="header-section-number">1.1</span> Seagrass mapping using Sentinel-2</h2>
-<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of <span class="citation" data-cites="zoffoli2021decadal">Zoffoli et al. (<a href="#ref-zoffoli2021decadal" role="doc-biblioref">2021</a>)</span> have been used to transform NDVI values into Seagrass Percent Cover <a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>. SPC values below 20%, corresponding to low biomass pixel, with a high risk of confusion with other vegetation classes, have been remove from the rest of the analysis.</p>
+<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. A total of 8 images have beed used (Table 1).</p>
+<table class="caption-top table">
+<caption>Table 1 : Acquisition dates of Sentinel-2 images used to map seagrass in Auray River. Time time have been retrieved from the SHOM.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Acquisition Date</th>
+<th style="text-align: center;">Low Tide Time</th>
+<th style="text-align: center;">Difference with Low tide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2016-11-03</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2017-10-04</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2018-09-29</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2019-09-14</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2020-08-04</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2021-10-08</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2022-08-29</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2023-09-03</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of <span class="citation" data-cites="zoffoli2021decadal">Zoffoli et al. (<a href="#ref-zoffoli2021decadal" role="doc-biblioref">2021</a>)</span> have been used to transform NDVI values into Seagrass Percent Cover (<a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>). SPC values below 20%, corresponding to low biomass pixel, with a high risk of confusion with other vegetation classes, have been remove from the rest of the analysis.</p>
 <p><span id="eq-std"><span class="math display">\[
-SPC = 172.06*NDVI-22.18
+SPC = 172.06 \times NDVI - 22.18
 \tag{1}\]</span></span></p>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Copernicus_Sentinel" class="csl-entry" role="listitem">

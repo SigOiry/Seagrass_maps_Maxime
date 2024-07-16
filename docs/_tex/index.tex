@@ -200,21 +200,47 @@ been used. Level-2 images, which are already orthorectified and
 atmospherically corrected using Sen2Cor, have been downloaded using the
 Copernicus Platform \citep{Copernicus_Sentinel}. One low tide,
 cloud-free image per year, nearest to the period of maximum seagrass
-biomass at this latitude, has been used. The ICECREAM model (Davies et
-al., Accepted), a neural network classifier designed to identify and
-discriminate intertidal vegetation in Europe, has been applied to each
-Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have
-been isolated, and the Normalized Difference Vegetation Index (NDVI,
-\citep{rouse1974monitoring}), a commonly used remote sensing biomass
-proxy for vegetation, has been employed. The equation of
-\citep{zoffoli2021decadal} have been used to transform NDVI values into
-Seagrass Percent Cover Equation~\ref{eq-std}. SPC values below 20\%,
-corresponding to low biomass pixel, with a high risk of confusion with
-other vegetation classes, have been remove from the rest of the
-analysis.
+biomass at this latitude, has been used. A total of 8 images have beed
+used (Table 1).
+
+\begin{longtable}[]{@{}ccc@{}}
+\caption{Table 1 : Acquisition dates of Sentinel-2 images used to map
+seagrass in Auray River. Time time have been retrieved from the
+SHOM.}\tabularnewline
+\toprule\noalign{}
+Acquisition Date & Low Tide Time & Difference with Low tide \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Acquisition Date & Low Tide Time & Difference with Low tide \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+2016-11-03 & & \\
+2017-10-04 & & \\
+2018-09-29 & & \\
+2019-09-14 & & \\
+2020-08-04 & & \\
+2021-10-08 & & \\
+2022-08-29 & & \\
+2023-09-03 & & \\
+\end{longtable}
+
+The ICECREAM model (Davies et al., Accepted), a neural network
+classifier designed to identify and discriminate intertidal vegetation
+in Europe, has been applied to each Sentinel-2 image. Pixels of the
+Magnoliopsida class (seagrasses) have been isolated, and the Normalized
+Difference Vegetation Index (NDVI, \citep{rouse1974monitoring}), a
+commonly used remote sensing biomass proxy for vegetation, has been
+employed. The equation of \citep{zoffoli2021decadal} have been used to
+transform NDVI values into Seagrass Percent Cover
+(Equation~\ref{eq-std}). SPC values below 20\%, corresponding to low
+biomass pixel, with a high risk of confusion with other vegetation
+classes, have been remove from the rest of the analysis.
 
 \begin{equation}\phantomsection\label{eq-std}{
-SPC = 172.06*NDVI-22.18
+SPC = 172.06 \times NDVI - 22.18
 }\end{equation}
 
 
