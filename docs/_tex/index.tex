@@ -206,14 +206,15 @@ discriminate intertidal vegetation in Europe, has been applied to each
 Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have
 been isolated, and the Normalized Difference Vegetation Index (NDVI,
 \citep{rouse1974monitoring}), a commonly used remote sensing biomass
-proxy for vegetation, has been employed. NDVI values have then been
-transformed into Seagrass Percent Cover (SPC) using the equation from
-, Equation~\ref{eq-std}. SPC values below 20\%, corresponding to low
-biomass pixels with a high risk of confusion with other vegetation
-classes, have been removed from the rest of the analysis.
+proxy for vegetation, has been employed. The equation of
+\citep{zoffoli2021decadal} have been used to transform NDVI values into
+Seagrass Percent Cover Equation~\ref{eq-std}. SPC values below 20\%,
+corresponding to low biomass pixel, with a high risk of confusion with
+other vegetation classes, have been remove from the rest of the
+analysis.
 
 \begin{equation}\phantomsection\label{eq-std}{
-SPC = 172.06*NDVI-
+SPC = 172.06*NDVI-22.18
 }\end{equation}
 
 

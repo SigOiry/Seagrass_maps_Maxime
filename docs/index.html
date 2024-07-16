@@ -194,9 +194,9 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Materiel &amp; Methods</h1>
 <section id="seagrass-mapping-using-sentinel-2" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="seagrass-mapping-using-sentinel-2"><span class="header-section-number">1.1</span> Seagrass mapping using Sentinel-2</h2>
-<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. NDVI values have then been transformed into Seagrass Percent Cover (SPC) using the equation from , <a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>. SPC values below 20%, corresponding to low biomass pixels with a high risk of confusion with other vegetation classes, have been removed from the rest of the analysis.</p>
+<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. The ICECREAM model (Davies et al., Accepted), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of <span class="citation" data-cites="zoffoli2021decadal">Zoffoli et al. (<a href="#ref-zoffoli2021decadal" role="doc-biblioref">2021</a>)</span> have been used to transform NDVI values into Seagrass Percent Cover <a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>. SPC values below 20%, corresponding to low biomass pixel, with a high risk of confusion with other vegetation classes, have been remove from the rest of the analysis.</p>
 <p><span id="eq-std"><span class="math display">\[
-SPC = 172.06*NDVI-
+SPC = 172.06*NDVI-22.18
 \tag{1}\]</span></span></p>
 
 </section>
@@ -208,6 +208,9 @@ Copernicus. 2024. <span>“Copernicus Open Access Hub.”</span> <a href="https:
 </div>
 <div id="ref-rouse1974monitoring" class="csl-entry" role="listitem">
 Rouse, John Wilson, Rüdiger H Haas, John A Schell, Donald W Deering, et al. 1974. <span>“Monitoring Vegetation Systems in the Great Plains with ERTS.”</span> <em>NASA Spec. Publ</em> 351 (1): 309.
+</div>
+<div id="ref-zoffoli2021decadal" class="csl-entry" role="listitem">
+Zoffoli, Maria Laura, Pierre Gernez, Laurent Godet, Steef Peters, Simon Oiry, and Laurent Barillé. 2021. <span>“Decadal Increase in the Ecological Status of a North-Atlantic Intertidal Seagrass Meadow Observed with Multi-Mission Satellite Time-Series.”</span> <em>Ecological Indicators</em> 130: 108033.
 </div>
 </div></section></div></main>
 <!-- /main column -->
