@@ -38,6 +38,8 @@ date: last-modified
 bibliography: library.bib
 number-sections: true
 notebook-links: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r library}
@@ -47,7 +49,9 @@ notebook-links: false
 #| eval: true
 
 library(tidyverse)
+library(tidyterra)
 library(terra)
+library(patchwork)
 
 ```
 
@@ -83,5 +87,79 @@ Maps and analysis have then been performed using the *Terra* package of R, in a 
 # Results
 
 ## Evolution of the spatial distribution of seagrasses over time
+
+```{r}
+#| cache: false
+#| echo: false
+#| warning: false
+#| eval: false
+
+rgb_list <- list.files("Data/RGB/", pattern = ".tif", recursive = TRUE, full.names = TRUE) %>%
+  as_tibble() %>% 
+  rename(path_rgb = "value") %>%  
+  mutate(name = gsub(".*/","",path_rgb),                 # Extract the filename
+         year = substr(name,1,4)) %>% 
+  dplyr::select(-name)
+
+img_list <- list.files("Data/ICECREAMS/", pattern = ".tif", recursive = TRUE, full.names = TRUE) %>% 
+  as_tibble() %>% 
+  rename(path_pred = "value") %>% 
+  mutate(name = gsub(".*/","",path_pred),                 # Extract the filename
+         year = substr(name,12,15),                  # Extract the year from the filename
+         date = as.POSIXct(substr(name,12,19), format = "%Y%m%d")) %>% 
+  left_join(rgb_list, by = "year")
+
+
+
+# Extract and format the date
+mask <- "Data/mask/Intertidal_mask_Auray.shp" %>% 
+  vect()
+
+for (i in 1:nrow(img_list)) {
+  
+  pred <- img_list$path_pred[i] %>% 
+    rast(lyrs = 5) %>% 
+    mask(mask) %>% 
+    as.data.frame(xy=T) %>% 
+    mutate(SPC20Unknown = case_when(SPC20Unknown < 20 ~ NA,
+                     T ~ SPC20Unknown))
+    
+  rgb <- img_list$path_rgb[i] %>% 
+    rast()
+
+    for(site_i in 1:length(unique(mask$Site_Name))){
+    
+      # Extract the mask for the current site
+      ext <- mask[which(mask$Site_Name == unique(mask$Site_Name)[site_i])] %>% 
+        ext()
+      
+      resize_x <- (as.numeric(ext[2])- as.numeric(ext[1]))*0.2
+      resize_y <- (as.numeric(ext[4])- as.numeric(ext[3]))*0.15
+
+    plot <- ggplot()+
+      geom_spatraster_rgb(data = rgb,
+                          max_col_value = 0.8)+
+      geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F) +  # Use a continuous color scale and make NA values transparent
+      coord_sf(xlim = c(ext[1]-resize_x, ext[2]+resize_x),
+              ylim = c(ext[3]-resize_y, ext[4]+resize_y)) +
+      scale_fill_viridis_c(na.value = "transparent") 
+    
+    if(site_i == 1){
+      a <- plot
+    }else{
+      b = plot +
+          scale_y_continuous(position = "left")
+    }
+
+      
+      
+  }
+  
+}
+
+a+b
+
+```
+
 
 

@@ -315,7 +315,16 @@
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyterra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attachement du package : 'tidyterra'
+
+L'objet suivant est masqué depuis 'package:stats':
+
+    filter</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>terra 1.7.78
 
@@ -324,6 +333,15 @@ Attachement du package : 'terra'
 L'objet suivant est masqué depuis 'package:tidyr':
 
     extract</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attachement du package : 'patchwork'
+
+L'objet suivant est masqué depuis 'package:terra':
+
+    area</code></pre>
 </div>
 </div></div>
 <p>The data and scripts used for this work can be found <a href="https://github.com/SigOiry/Seagrass_maps_Maxime">here</a>.</p>
@@ -406,8 +424,74 @@ SPC = 172.06 \times NDVI - 22.18
 </section>
 <section id="results" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Results</h1>
-<section id="evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="level2 unnumbered" data-number="2.1">
-<h2 class="unnumbered anchored" data-number="2.1" data-anchor-id="evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</h2>
+<section id="evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</h2>
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rgb_list <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"Data/RGB/"</span>, <span class="at">pattern =</span> <span class="st">".tif"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">path_rgb =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">gsub</span>(<span class="st">".*/"</span>,<span class="st">""</span>,path_rgb),                 <span class="co"># Extract the filename</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">substr</span>(name,<span class="dv">1</span>,<span class="dv">4</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>name)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>img_list <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"Data/ICECREAMS/"</span>, <span class="at">pattern =</span> <span class="st">".tif"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">path_pred =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">gsub</span>(<span class="st">".*/"</span>,<span class="st">""</span>,path_pred),                 <span class="co"># Extract the filename</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">substr</span>(name,<span class="dv">12</span>,<span class="dv">15</span>),                  <span class="co"># Extract the year from the filename</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">date =</span> <span class="fu">as.POSIXct</span>(<span class="fu">substr</span>(name,<span class="dv">12</span>,<span class="dv">19</span>), <span class="at">format =</span> <span class="st">"%Y%m%d"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(rgb_list, <span class="at">by =</span> <span class="st">"year"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract and format the date</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">&lt;-</span> <span class="st">"Data/mask/Intertidal_mask_Auray.shp"</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vect</span>()</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(img_list)) {</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> img_list<span class="sc">$</span>path_pred[i] <span class="sc">%&gt;%</span> </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="at">lyrs =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mask</span>(mask) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="at">xy=</span>T) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">SPC20Unknown =</span> <span class="fu">case_when</span>(SPC20Unknown <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                     T <span class="sc">~</span> SPC20Unknown))</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  rgb <span class="ot">&lt;-</span> img_list<span class="sc">$</span>path_rgb[i] <span class="sc">%&gt;%</span> </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rast</span>()</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(site_i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">unique</span>(mask<span class="sc">$</span>Site_Name))){</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Extract the mask for the current site</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>      ext <span class="ot">&lt;-</span> mask[<span class="fu">which</span>(mask<span class="sc">$</span>Site_Name <span class="sc">==</span> <span class="fu">unique</span>(mask<span class="sc">$</span>Site_Name)[site_i])] <span class="sc">%&gt;%</span> </span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ext</span>()</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>      resize_x <span class="ot">&lt;-</span> (<span class="fu">as.numeric</span>(ext[<span class="dv">2</span>])<span class="sc">-</span> <span class="fu">as.numeric</span>(ext[<span class="dv">1</span>]))<span class="sc">*</span><span class="fl">0.2</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>      resize_y <span class="ot">&lt;-</span> (<span class="fu">as.numeric</span>(ext[<span class="dv">4</span>])<span class="sc">-</span> <span class="fu">as.numeric</span>(ext[<span class="dv">3</span>]))<span class="sc">*</span><span class="fl">0.15</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_spatraster_rgb</span>(<span class="at">data =</span> rgb,</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>                          <span class="at">max_col_value =</span> <span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_tile</span>(<span class="at">data =</span> pred, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> SPC20Unknown), <span class="at">show.legend =</span> F) <span class="sc">+</span>  <span class="co"># Use a continuous color scale and make NA values transparent</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(ext[<span class="dv">1</span>]<span class="sc">-</span>resize_x, ext[<span class="dv">2</span>]<span class="sc">+</span>resize_x),</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>              <span class="at">ylim =</span> <span class="fu">c</span>(ext[<span class="dv">3</span>]<span class="sc">-</span>resize_y, ext[<span class="dv">4</span>]<span class="sc">+</span>resize_y)) <span class="sc">+</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_viridis_c</span>(<span class="at">na.value =</span> <span class="st">"transparent"</span>) </span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(site_i <span class="sc">==</span> <span class="dv">1</span>){</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>      a <span class="ot">&lt;-</span> plot</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span>{</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>      b <span class="ot">=</span> plot <span class="sc">+</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>          <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"left"</span>)</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>a<span class="sc">+</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Copernicus_Sentinel" class="csl-entry" role="listitem">
 Copernicus. 2024. <span>“Copernicus Open Access Hub.”</span> <a href="https://browser.dataspace.copernicus.eu/">https://browser.dataspace.copernicus.eu/</a>.
