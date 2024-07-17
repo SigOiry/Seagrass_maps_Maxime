@@ -6,7 +6,20 @@ author:
     email: oirysimon@gmail.com
     orcid: 0000-0001-7161-5246
     affiliations: 
-        - id: some-tech
+        - id: ISOMER
+          name: Nantes Université, UR 2160, F-44000 Nantes, France
+          department: Institut des Substances et Organismes de la Mer, ISOMer
+          address: 2 chemin de la houssinière
+          city: Nantes
+          state: France
+          postal-code: 44300
+    attributes:
+        corresponding: true
+  - name: Bede Ffinian Rowe Davies
+    email: bedeffinian@gmail.com
+    orcid: 0000-0001-6462-4347
+    affiliations: 
+        - id: ISOMER
           name: Nantes Université, UR 2160, F-44000 Nantes, France
           department: Institut des Substances et Organismes de la Mer, ISOMer
           address: 2 chemin de la houssinière
@@ -40,7 +53,7 @@ library(terra)
 
 The data and scripts used for this work can be found [here](https://github.com/SigOiry/Seagrass_maps_Maxime).
 
-# Materiel & Methods
+# Materials & Methods
 
 ## Seagrass mapping using Sentinel-2
 

@@ -142,7 +142,7 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={Seagrass mapping in two mudflats in the Auray River},
-  pdfauthor={Simon Oiry},
+  pdfauthor={Simon Oiry; Bede Ffinian Rowe Davies},
   pdfkeywords={Remote Sensing, Sentinel-2, Seagrass},
   colorlinks=true,
   linkcolor={blue},
@@ -161,6 +161,10 @@ River \\\large{About a rapid evolution of seagrasses} }
 \corref{cor1}%
 }
  \ead{oirysimon@gmail.com} 
+\author[1]{Bede Ffinian Rowe Davies%
+\corref{cor1}%
+}
+ \ead{bedeffinian@gmail.com} 
 
 \affiliation[1]{organization={Nantes Université, UR 2160, F-44000
 Nantes, France, Institut des Substances et Organismes de la Mer,
@@ -168,6 +172,7 @@ ISOMer},addressline={2 chemin de la
 houssinière},city={Nantes},postcode={44300},postcodesep={}}
 
 \cortext[cor1]{Corresponding author}
+
 
         
 \begin{abstract}
@@ -190,7 +195,7 @@ seagrasses.
 The data and scripts used for this work can be found
 \href{https://github.com/SigOiry/Seagrass_maps_Maxime}{here}.
 
-\section{Materiel \& Methods}\label{materiel-methods}
+\section{Materials \& Methods}\label{materials-methods}
 
 \subsection{Seagrass mapping using
 Sentinel-2}\label{seagrass-mapping-using-sentinel-2}
@@ -251,7 +256,7 @@ applied to each Sentinel-2 image. Pixels of the Magnoliopsida class
 (seagrasses) have been isolated, and the Normalized Difference
 Vegetation Index (NDVI, \citep{rouse1974monitoring}), a commonly used
 remote sensing biomass proxy for vegetation, has been employed. The
-equation of \citep{zoffoli2021decadal} have been used to transform NDVI
+equation of \citep{zoffoli2020sentinel} have been used to transform NDVI
 values into Seagrass Percent Cover (Equation~\ref{eq-std}). SPC values
 below 20\%, corresponding to low biomass pixel, with a high risk of
 confusion with other vegetation classes, have been remove from the rest
@@ -263,7 +268,12 @@ SPC = 172.06 \times NDVI - 22.18
 
 Maps and analysis have then been performed using the \emph{Terra}
 package of R, in a \emph{Tidyverse} workflow
-\citep{hijmans2023terra, wickham2017easily}
+\citep{hijmans2023terra, wickham2017easily}.
+
+\section{Results}\label{results}
+
+\subsection{Evolution of the spatial distribution of seagrasses over
+time}\label{evolution-of-the-spatial-distribution-of-seagrasses-over-time}
 
 
   \bibliography{library.bib}
