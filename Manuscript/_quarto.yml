@@ -5,7 +5,8 @@ execute:
   freeze: auto
 
 format:
-  html: 
+  html:
+    output-file: "index"
     toc: true
     theme: spacelab
     comments:
@@ -26,3 +27,6 @@ resources:
   - "!*.embed.ipynb"
 
 bibliography: library.bib
+
+files:
+  - Manuscript/Data_Processing.qmd
