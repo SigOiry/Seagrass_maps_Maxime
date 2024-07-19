@@ -52,6 +52,8 @@ library(tidyverse)
 library(tidyterra)
 library(terra)
 library(patchwork)
+library(png)
+library(gridExtra)
 
 ```
 
@@ -88,7 +90,7 @@ Maps and analysis have then been performed using the *Terra* package of R, in a 
 
 ## Evolution of the spatial distribution of seagrasses over time
 
-```{r}
+```{r maps Fig1}
 #| cache: false
 #| echo: false
 #| warning: false
@@ -128,36 +130,86 @@ for (i in 1:nrow(img_list)) {
     rast()
 
     for(site_i in 1:length(unique(mask$Site_Name))){
+      
+      
+      site <- unique(mask$Site_Name)[site_i]
     
       # Extract the mask for the current site
-      ext <- mask[which(mask$Site_Name == unique(mask$Site_Name)[site_i])] %>% 
+      ext <- mask[which(mask$Site_Name == site)] %>% 
         ext()
       
       resize_x <- (as.numeric(ext[2])- as.numeric(ext[1]))*0.2
       resize_y <- (as.numeric(ext[4])- as.numeric(ext[3]))*0.15
 
-    plot <- ggplot()+
-      geom_spatraster_rgb(data = rgb,
-                          max_col_value = 0.8)+
-      geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F) +  # Use a continuous color scale and make NA values transparent
-      coord_sf(xlim = c(ext[1]-resize_x, ext[2]+resize_x),
-              ylim = c(ext[3]-resize_y, ext[4]+resize_y)) +
-      scale_fill_viridis_c(na.value = "transparent") 
-    
-    if(site_i == 1){
-      a <- plot
-    }else{
-      b = plot +
-          scale_y_continuous(position = "left")
-    }
+      text_position_x <- as.numeric(ext[1] + ((as.numeric(ext[2])- as.numeric(ext[1]))*0.1))
+      text_position_y <- as.numeric(ext[3] - ((as.numeric(ext[4])- as.numeric(ext[3]))*0.12))
 
       
-      
-  }
+      plot <- ggplot()+
+        geom_spatraster_rgb(data = rgb,
+                            max_col_value = 0.8)+
+        coord_sf(xlim = c(ext[1]-resize_x, ext[2]+resize_x),
+                ylim = c(ext[3]-resize_y, ext[4]+resize_y)) +
+        # geom_text(aes(x = text_position_x, y = text_position_y, label = img_list$year[i]), color = "white" , size = 5)+
   
+        scale_fill_viridis_c(na.value = "transparent")+
+        theme(axis.text = element_blank(),
+              axis.title = element_blank(),
+              axis.ticks = element_blank(),
+              plot.margin = margin(0, 0, 0, 0, "mm"))
+    
+      if(site_i == 1){
+        a <- plot +
+          geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F) +  # Use a continuous color scale and make NA values transparent
+
+          geom_text(aes(x = 503360, y = 5274145, label = "Fort Espagnol" ), color = "white" , size = 7) +
+          geom_text(aes(x = 503301.7, y = 5273133, label = img_list$year[i]), color = "white" , size = 7)
+  
+      }else{
+        b = plot +
+          geom_text(aes(x = 502650, y = 5271835, label = "Kerouarc'h" ), color = "white" , size = 7)
+        
+        if(img_list$year[i]=="2023"){
+         b = b + geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown))  +
+            labs(fill = "SPC (%)")+
+            theme(legend.position = c(.9,.85),
+                  legend.background = element_rect(fill=scales::alpha('white', 0.4)),
+                  legend.text = element_text(size = 15),
+                  legend.title = element_text(size = 18,margin = margin(b = 15)),
+                  legend.key.size = unit(0.7,"cm")
+                  )
+
+        }else{
+          b = b + geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F)  # Use a continuous color scale and make NA values transparent
+
+        }
+      }
+      
+      
+    }
+  
+  patchwork <- a+b
+  ggsave(paste0("Output/Figs/maps/",img_list$year[i],"_maps.png"),patchwork, width = 832*3, height = 759*3, units = "px" )
 }
 
-a+b
+
+read_png_as_ggplot <- function(file_path) {
+  img <- readPNG(file_path)
+  img_grob <- grid::rasterGrob(img, interpolate = TRUE)
+   return(ggplot() +
+    annotation_custom(img_grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) +
+    theme_void())
+}
+
+png_files <- list.files(path = "Output/Figs/maps", pattern = "*.png", full.names = TRUE)
+
+# Create a list of ggplot objects
+plot_list <- lapply(png_files, read_png_as_ggplot)
+
+# Combine plots into one
+combined_plot <- do.call(grid.arrange, c(plot_list, ncol = 4))  # Change ncol to adjust the number of columns
+
+  ggsave("Output/Figs/test.png",combined_plot, width = 2620, height = 2620/2.3, units = "px")
 
 ```
 
