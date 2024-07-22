@@ -8,7 +8,7 @@
 
 <meta name="author" content="Simon Oiry">
 <meta name="author" content="Bede Ffinian Rowe Davies">
-<meta name="dcterms.date" content="2024-07-19">
+<meta name="dcterms.date" content="2024-07-22">
 <meta name="keywords" content="Remote Sensing, Sentinel-2, Seagrass">
 
 <title>Seagrass mapping in two mudflats in the Auray River</title>
@@ -103,10 +103,10 @@ window.Quarto = {
 <meta name="citation_keywords" content="Remote Sensing,Sentinel-2,Seagrass">
 <meta name="citation_author" content="Simon Oiry">
 <meta name="citation_author" content="Bede Ffinian Rowe Davies">
-<meta name="citation_publication_date" content="2024-07-19">
-<meta name="citation_cover_date" content="2024-07-19">
+<meta name="citation_publication_date" content="2024-07-22">
+<meta name="citation_cover_date" content="2024-07-22">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-07-19">
+<meta name="citation_online_date" content="2024-07-22">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Copernicus Open Access Hub;,citation_author=Copernicus;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://browser.dataspace.copernicus.eu/;">
 <meta name="citation_reference" content="citation_title=Monitoring vegetation systems in the Great Plains with ERTS;,citation_author=John Wilson Rouse;,citation_author=Rüdiger H Haas;,citation_author=John A Schell;,citation_author=Donald W Deering;,citation_author=others;,citation_publication_date=1974;,citation_cover_date=1974;,citation_year=1974;,citation_issue=1;,citation_volume=351;,citation_journal_title=NASA Spec. Publ;">
@@ -157,7 +157,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">July 19, 2024</p>
+              <p class="date">July 22, 2024</p>
             </div>
           </div>
           
@@ -197,6 +197,7 @@ window.Quarto = {
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">2</span> Results</a>
   <ul class="collapse">
   <li><a href="#evolution-of-the-spatial-distribution-of-seagrasses-over-time" id="toc-evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="nav-link" data-scroll-target="#evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</a></li>
+  <li><a href="#evolution-of-the-extent-and-density-of-the-meadow-over-time" id="toc-evolution-of-the-extent-and-density-of-the-meadow-over-time" class="nav-link" data-scroll-target="#evolution-of-the-extent-and-density-of-the-meadow-over-time"><span class="header-section-number">2.2</span> Evolution of the extent and density of the meadow over time</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -215,11 +216,11 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Materials &amp; Methods</h1>
 <section id="seagrass-mapping-using-sentinel-2" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="seagrass-mapping-using-sentinel-2"><span class="header-section-number">1.1</span> Seagrass mapping using Sentinel-2</h2>
-<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected using Sen2Cor, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of maximum seagrass biomass at this latitude, has been used. A total of 8 images have beed used (<a href="#tbl-tide-data" class="quarto-xref">Table&nbsp;1</a>).</p>
+<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of the annual maximum seagrass biomass at this latitude has been used. A total of 8 images have been used (<a href="#tbl-tide-data" class="quarto-xref">Table&nbsp;1</a>).</p>
 <div id="tbl-tide-data" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tide-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River. Tide times were retrieved from the SHOM and correspond to the tides at the Locmariaquer tide gauge, situated approximately 2 km from the study sites.
+Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River mudflats. Tide times were retrieved from the SHOM and correspond to the tides at the Locmariaquer tide gauge, situated approximately 2 km from the study sites.
 </figcaption>
 <div aria-describedby="tbl-tide-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -281,7 +282,7 @@ Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the
 </div>
 </figure>
 </div>
-<p>The <em>Intertidal Classification of Europe: Categorising Reflectance of Emerged Areas of Marine vegetation with Sentinel-2</em> model (ICE CREAMS, <span class="citation" data-cites="Davies2024">Davies et al. (<a href="#ref-Davies2024" role="doc-biblioref">2024</a>)</span>), a neural network classifier designed to identify and discriminate intertidal vegetation in Europe, has been applied to each Sentinel-2 image. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of <span class="citation" data-cites="zoffoli2020sentinel">Zoffoli et al. (<a href="#ref-zoffoli2020sentinel" role="doc-biblioref">2020</a>)</span> have been used to transform NDVI values into Seagrass Percent Cover (<a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>). SPC values below 20%, corresponding to low biomass pixel, with a high risk of confusion with other vegetation classes, have been remove from the rest of the analysis.</p>
+<p>The <em>Intertidal Classification of Europe: Categorising Reflectance of Emerged Areas of Marine vegetation with Sentinel-2</em> model has been applied to each Sentinel-2 image (ICE CREAMS, <span class="citation" data-cites="Davies2024">Davies et al. (<a href="#ref-Davies2024" role="doc-biblioref">2024</a>)</span>). It is a neural network classifier designed to identify and discriminate intertidal vegetation in Europe. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, <span class="citation" data-cites="rouse1974monitoring">Rouse et al. (<a href="#ref-rouse1974monitoring" role="doc-biblioref">1974</a>)</span>), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of <span class="citation" data-cites="zoffoli2020sentinel">Zoffoli et al. (<a href="#ref-zoffoli2020sentinel" role="doc-biblioref">2020</a>)</span> have been used to transform NDVI values into Seagrass Percent Cover (<a href="#eq-std" class="quarto-xref">Equation&nbsp;1</a>). Only pixels with SPC values above 20%, corresponding to high biomass pixel have been considered in order to avoid confusion with other class of vegetation.</p>
 <p><span id="eq-std"><span class="math display">\[
 SPC = 172.06 \times NDVI - 22.18
 \tag{1}\]</span></span></p>
@@ -292,7 +293,7 @@ SPC = 172.06 \times NDVI - 22.18
 <h1 data-number="2"><span class="header-section-number">2</span> Results</h1>
 <section id="evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</h2>
-<p>A time series of the seagrass percent cover was conducted between 2016 and 2018 (see <a href="#fig-Maps" class="quarto-xref">Figure&nbsp;1</a>). A consistent cover of seagrass can be observed at Fort Espagnol since the beginning of the time series. From 2019 onwards, the meadows appear to become denser at that site, especially in the northern part of the mudflat, with the exception of 2020, when green algae covered the meadow in August. Concerning Kerouarc’h, the meadow was absent from the mudflat between 2016 and 2019. As for Fort Espagnol, in 2020 ICE CREAMS predicted almost exclusively green algae in Kerouarc’h. From 2020 onward, the seagrass meadows have seen a rapid extension, covering almost the entirety of the mudflat since 2021, and then becoming denser in 2022.</p>
+<p>The time series of the seagrass percent cover between 2016 and 2023 shows an overall increase in meadow extent at both sites(<a href="#fig-Maps" class="quarto-xref">Figure&nbsp;1</a>). From 2019 onwards, the meadows became denser at Fort Espagnol, particularly in the northern part of the mudflat. At Kerouarc’h, the meadow was limited to small, sparse patches between 2016 and 2019. However, from 2021 onward, the seagrass meadow experienced a rapid expansion, covering almost the entire mudflat.</p>
 <div id="cell-fig-Maps" class="cell">
 <div class="cell-output-display">
 <div id="fig-Maps" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -302,6 +303,24 @@ SPC = 172.06 \times NDVI - 22.18
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Maps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Time Serie of the Seagrass Percent cover between 2016 and 2023 in Fort Espagnol and Kerouarc’h, two sites of the Auray river.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="evolution-of-the-extent-and-density-of-the-meadow-over-time" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="evolution-of-the-extent-and-density-of-the-meadow-over-time"><span class="header-section-number">2.2</span> Evolution of the extent and density of the meadow over time</h2>
+<p>The maximum total extent of seagrass was reached in 2021 at Fort Espagnol and in 2022 at Kerouarc’h. Overall, during this period, the extent of the meadow at Fort Espagnol increased by approximately 50% and by about 90% at Kerouarc’h (<a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> A). The density of the meadow remained relatively constant between 2016 and 2020 at both sites before increasing to 54% of the median SPC in 2023 at Fort Espagnol and 63% in 2022 at Kerouarc’h (<a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> B). The year 2020 is an exception to these trends due to green algae covering the meadow in August, which impeded the detection of the underlying seagrass with remote sensing techniques.</p>
+<div id="cell-fig-Extent" class="cell">
+<div class="cell-output-display">
+<div id="fig-Extent" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="../Output/Figs/Figure2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative sesgrass extent of each site. 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge."><img src="../Output/Figs/Figure2.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative sesgrass extent of each site. 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge.
 </figcaption>
 </figure>
 </div>
@@ -753,7 +772,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"descPosition":"bottom","openEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

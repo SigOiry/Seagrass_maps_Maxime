@@ -202,20 +202,21 @@ Sentinel-2}\label{seagrass-mapping-using-sentinel-2}
 
 To map the seagrass extent over time, the Sentinel-2 constellation has
 been used. Level-2 images, which are already orthorectified and
-atmospherically corrected using Sen2Cor, have been downloaded using the
-Copernicus Platform \citep{Copernicus_Sentinel}. One low tide,
-cloud-free image per year, nearest to the period of maximum seagrass
-biomass at this latitude, has been used. A total of 8 images have beed
-used (Table~\ref{tbl-tide-data}).
+atmospherically corrected, have been downloaded using the Copernicus
+Platform \citep{Copernicus_Sentinel}. One low tide, cloud-free image per
+year, nearest to the period of the annual maximum seagrass biomass at
+this latitude has been used. A total of 8 images have been used
+(Table~\ref{tbl-tide-data}).
 
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3194}}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4028}}@{}}
 \caption{Acquisition dates of Sentinel-2 images used to map seagrass in
-the Auray River. Tide times were retrieved from the SHOM and correspond
-to the tides at the Locmariaquer tide gauge, situated approximately 2 km
-from the study sites.}\label{tbl-tide-data}\tabularnewline
+the Auray River mudflats. Tide times were retrieved from the SHOM and
+correspond to the tides at the Locmariaquer tide gauge, situated
+approximately 2 km from the study
+sites.}\label{tbl-tide-data}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 Acquisition Date (UTC)
@@ -249,18 +250,18 @@ Time Difference with Low tide
 \end{longtable}
 
 The \emph{Intertidal Classification of Europe: Categorising Reflectance
-of Emerged Areas of Marine vegetation with Sentinel-2} model (ICE
-CREAMS, \citep{Davies2024}), a neural network classifier designed to
-identify and discriminate intertidal vegetation in Europe, has been
-applied to each Sentinel-2 image. Pixels of the Magnoliopsida class
+of Emerged Areas of Marine vegetation with Sentinel-2} model has been
+applied to each Sentinel-2 image (ICE CREAMS, \citep{Davies2024}). It is
+a neural network classifier designed to identify and discriminate
+intertidal vegetation in Europe. Pixels of the Magnoliopsida class
 (seagrasses) have been isolated, and the Normalized Difference
 Vegetation Index (NDVI, \citep{rouse1974monitoring}), a commonly used
 remote sensing biomass proxy for vegetation, has been employed. The
 equation of \citep{zoffoli2020sentinel} have been used to transform NDVI
-values into Seagrass Percent Cover (Equation~\ref{eq-std}). SPC values
-below 20\%, corresponding to low biomass pixel, with a high risk of
-confusion with other vegetation classes, have been remove from the rest
-of the analysis.
+values into Seagrass Percent Cover (Equation~\ref{eq-std}). Only pixels
+with SPC values above 20\%, corresponding to high biomass pixel have
+been considered in order to avoid confusion with other class of
+vegetation.
 
 \begin{equation}\phantomsection\label{eq-std}{
 SPC = 172.06 \times NDVI - 22.18
@@ -275,17 +276,13 @@ package of R, in a \emph{Tidyverse} workflow
 \subsection{Evolution of the spatial distribution of seagrasses over
 time}\label{evolution-of-the-spatial-distribution-of-seagrasses-over-time}
 
-A time series of the seagrass percent cover was conducted between 2016
-and 2018 (see Figure~\ref{fig-Maps}). A consistent cover of seagrass can
-be observed at Fort Espagnol since the beginning of the time series.
-From 2019 onwards, the meadows appear to become denser at that site,
-especially in the northern part of the mudflat, with the exception of
-2020, when green algae covered the meadow in August. Concerning
-Kerouarc'h, the meadow was absent from the mudflat between 2016 and
-2019. As for Fort Espagnol, in 2020 ICE CREAMS predicted almost
-exclusively green algae in Kerouarc'h. From 2020 onward, the seagrass
-meadows have seen a rapid extension, covering almost the entirety of the
-mudflat since 2021, and then becoming denser in 2022.
+The time series of the seagrass percent cover between 2016 and 2023
+shows an overall increase in meadow extent at both
+sites(Figure~\ref{fig-Maps}). From 2019 onwards, the meadows became
+denser at Fort Espagnol, particularly in the northern part of the
+mudflat. At Kerouarc'h, the meadow was limited to small, sparse patches
+between 2016 and 2019. However, from 2021 onward, the seagrass meadow
+experienced a rapid expansion, covering almost the entire mudflat.
 
 \phantomsection\label{cell-fig-Maps}
 \begin{figure}[H]
@@ -299,6 +296,38 @@ mudflat since 2021, and then becoming denser in 2022.
 \caption{\label{fig-Maps}Time Serie of the Seagrass Percent cover
 between 2016 and 2023 in Fort Espagnol and Kerouarc'h, two sites of the
 Auray river.}
+
+\end{figure}%
+
+\subsection{Evolution of the extent and density of the meadow over
+time}\label{evolution-of-the-extent-and-density-of-the-meadow-over-time}
+
+The maximum total extent of seagrass was reached in 2021 at Fort
+Espagnol and in 2022 at Kerouarc'h. Overall, during this period, the
+extent of the meadow at Fort Espagnol increased by approximately 50\%
+and by about 90\% at Kerouarc'h (Figure~\ref{fig-Extent} A). The density
+of the meadow remained relatively constant between 2016 and 2020 at both
+sites before increasing to 54\% of the median SPC in 2023 at Fort
+Espagnol and 63\% in 2022 at Kerouarc'h (Figure~\ref{fig-Extent} B). The
+year 2020 is an exception to these trends due to green algae covering
+the meadow in August, which impeded the detection of the underlying
+seagrass with remote sensing techniques.
+
+\phantomsection\label{cell-fig-Extent}
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{../Output/Figs/Figure2.png}
+
+}
+
+\caption{\label{fig-Extent}Descritpion of the evolution of seagrass over
+time. A - Relative sesgrass extent of each site. 1 means maximum extent
+of the time serie for the site. B - Boxplot of the density of seagrass
+for each site at each date. The lower and upper hinges correspond to the
+first and third quartiles (the 25th and 75th percentiles). Whiskers are
+to 1.5 * IQR (Inter-Quartile Range) from the hinge.}
 
 \end{figure}%
 
