@@ -43,7 +43,7 @@ for(img_i in 1:nrow(img_list)){
                slice(img_i) %>% 
                pull(year)) %>%               # Add year information
       dplyr::filter(out_class == 4 & 
-                      SPC20Unknown != 0 )   %>%        # Filter the data for a specific class
+                      SPC20Unknown !=0 )   %>%        # Filter the data for a specific class
       as_tibble()
     # Combine the data frames
     if(img_i == 1 & site_i == 1){
@@ -74,11 +74,11 @@ cols <- c("Kerouarc'h" = "#399E5A", "Fort Espagnol" = "#5ABCB9")
 output %>% 
   ggplot() + 
   geom_boxplot(aes(x = year, y = SPC20Unknown, color = site), alpha = 0.1) +
-  geom_smooth(aes(x = year, y = SPC20Unknown, color = site, fill = site, group = site), 
-              method = "gam",
-              formula = y ~ s(x, k = 8),
-              alpha = 0.1
-  )+
+  # geom_smooth(aes(x = year, y = SPC20Unknown, color = site, fill = site, group = site), 
+  #             method = "gam",
+  #             formula = y ~ s(x, k = 8),
+  #             alpha = 0.1
+  # )+
   ylab("Seagrass Cover (%)") +
   xlab("Year") +
   ylim(0,100)+
@@ -96,7 +96,37 @@ output %>%
   )
 
 
-### Extent over time
+### Area of the meadow
+output %>% 
+  group_by(year, site) %>% 
+  reframe(extent = sum(SPC20Unknown)*(10^-6),
+          n = n()) %>% 
+  ggplot(aes(x = year, y = (n*100)*(10^-6), color = site, group = site))+
+  geom_point()+
+  geom_smooth(aes(x = year, y = (n*100)*(10^-6), color = site, fill = site, group = site), 
+              method = "gam",
+              formula = y ~ s(x, k = 8),
+              alpha = 0.1
+  )+
+  # scale_y_log10() +
+  ylab("Seagrass Extent (km²)") +
+  xlab("Year") +
+  scale_colour_manual(values = cols) +
+  scale_fill_manual(values = cols) +
+  
+  labs(color = "Sites :",
+       fill = "Sites :") + 
+  theme_bw() +
+  theme(
+    axis.title = element_text(size = 20),
+    axis.text = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(size = 17),
+    legend.position = "top"
+  )
+
+
+### Extent over time SPC
 output %>% 
   group_by(year, site) %>% 
   reframe(extent = sum(SPC20Unknown)*(10^-6),
@@ -108,7 +138,7 @@ output %>%
               formula = y ~ s(x, k = 8),
               alpha = 0.1
   )+
-  scale_y_log10() +
+  # scale_y_log10() +
   ylab("Seagrass Extent (km²)") +
   xlab("Year") +
   scale_colour_manual(values = cols) +
