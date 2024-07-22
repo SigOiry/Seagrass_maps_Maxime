@@ -226,6 +226,8 @@ plot_list <- lapply(png_files, read_png_as_ggplot)
 combined_plot <- do.call(grid.arrange, c(plot_list, ncol = 4))  # Change ncol to adjust the number of columns
 
 ggsave("Output/Figs/Figure1.png",combined_plot, width = 2620*2, height = (2620*2)/2.3, units = "px")
+ggsave("Manuscript/Figs/Figure1.png", a, width = 1000 * 4, height = (500 * 4), units = "px")
+
 ```
 
 ```{r Fig1}
@@ -238,7 +240,7 @@ ggsave("Output/Figs/Figure1.png",combined_plot, width = 2620*2, height = (2620*2
 #| fig-height: 8
 #| out-width: "100%"
 
-knitr::include_graphics("../Output/Figs/Figure1.png")
+knitr::include_graphics("Figs/Figure1.png")
 
 ```
 
@@ -383,6 +385,7 @@ stat_boxplot <- output %>%
 # Combine the two plots and save the figure
 a <- plot + plot_SPC
 ggsave("Output/Figs/Figure2.png", a, width = 1000 * 4, height = (500 * 4), units = "px")
+ggsave("Manuscript/Figs/Figure2.png", a, width = 1000 * 4, height = (500 * 4), units = "px")
 
 
 ```
@@ -397,5 +400,5 @@ ggsave("Output/Figs/Figure2.png", a, width = 1000 * 4, height = (500 * 4), units
 #| fig-height: 8
 #| out-width: "100%"
 
-knitr::include_graphics("../Output/Figs/Figure2.png")
+knitr::include_graphics("Figs/Figure2.png")
 ```
