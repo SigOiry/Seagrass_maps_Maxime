@@ -133,6 +133,30 @@ for (i in 1:nrow(img_list)) {
 
     for(site_i in 1:length(unique(mask$Site_Name))){
       
+      if(site_i == 1){
+        pts <- data.frame(x = 503531.927,
+                          y = 5273622.724) %>% 
+          vect(geom=c("x", "y"), crs = crs(mask))
+        
+        SPC_site_1 <- img_list$path_pred[i] %>% 
+          rast(lyrs = 5) %>% 
+        terra::extract(pts) %>% 
+        pull(SPC20Unknown) %>% 
+        round()
+      
+      }else{
+        pts <- data.frame(x = 503383.759,
+                          y = 5269955.079) %>% 
+          vect(geom=c("x", "y"), crs = crs(mask))
+        
+        SPC_site_2 <- img_list$path_pred[i] %>% 
+          rast(lyrs = 5) %>% 
+        terra::extract(pts) %>% 
+        pull(SPC20Unknown) %>% 
+        round()
+      }
+      
+      
       
       site <- unique(mask$Site_Name)[site_i]
     
@@ -161,30 +185,49 @@ for (i in 1:nrow(img_list)) {
     
       if(site_i == 1){
         a <- plot +
-          geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F) +  # Use a continuous color scale and make NA values transparent
+          geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F) + 
+          geom_point(aes(x=503531.927,
+                         y=5273622.724), color = "darkred", size = 5)+# Use a continuous color scale and make NA values transparent
 
           geom_text(aes(x = 503360, y = 5274145, label = "Fort Espagnol" ), color = "white" , size = 7) +
-          geom_text(aes(x = 503301.7, y = 5273133, label = img_list$year[i]), color = "white" , size = 7)
+          geom_text(aes(x = 503275.7, y = 5274073, label = img_list$year[i]), color = "white" , size = 7)
         
-        if(img_list$year[i]=="2023"){
+        if(img_list$year[i]=="2016"){
           a <- a +
             geom_rect(aes(xmin = 503436, xmax = 503738, ymin = 5273032, ymax = 5273120), fill = "white", alpha = 0.4)+
             ggspatial::annotation_scale(location = "br",
                                   text_cex=2,
-                                  bar_cols = c("white", "black"))
+                                  bar_cols = c("white", "black"))+
+               ggforce::geom_mark_ellipse(aes(x=503531.927,
+                         y=5273622.724,
+                         label = "4B") ,
+                         linewidth=0.3,
+                         fill="darkred",
+                         color = NA,
+                         show.legend=F,
+                         label.hjust = 0.5,
+                         con.size = 2,
+                         con.colour = "darkred",
+                         label.fontsize = c(25,20),
+                         alpha=0,
+                         expand = unit(2, "mm") , 
+                         radius = unit(2, "mm") , 
+                         label.buffer = unit(10, "mm") ,
+                         label.fill = rgb(1,1,1,0.4))
         }
-  
+        
+        if(SPC_site_1 != 0){
+          a = a + geom_text(aes(x = 503331.7, y = 5273103, label = paste0("SPC : ", SPC_site_1,"%")), color = "white" , size = 7)
+        }
       }else{
         b = plot +
           geom_text(aes(x = 502650, y = 5271835, label = "Kerouarc'h" ), color = "white" , size = 7)
-        
-        if(img_list$year[i]=="2023"){
+      
+        if(img_list$year[i]=="2016"){
           
           b <- b + geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown))  +
                 labs(fill = "SPC (%)")+
                 geom_rect(aes(xmin = 503282, xmax = 504282, ymin = 5269000, ymax = 5269250), fill = "white", alpha = 0.4)+
-    
-                
                 theme(legend.position = c(.9,.85),
                       legend.background = element_rect(fill=scales::alpha('white', 0.4)),
                       legend.text = element_text(size = 15),
@@ -193,10 +236,35 @@ for (i in 1:nrow(img_list)) {
                       )+
                 ggspatial::annotation_scale(location = "br",
                                     text_cex=2,
-                                    bar_cols = c("white", "black"))
+                                    bar_cols = c("white", "black"))+
+            geom_point(aes(x=503383.759,
+                         y=5269955.079), color = "darkred", size = 5)+
+            ggforce::geom_mark_ellipse(aes(x=503383.759,
+                     y=5269955.079,
+                     label = "2C") ,
+                     linewidth=0.3,
+                     fill="darkred",
+                     color = NA,
+                     show.legend=F,
+                     label.hjust = 0.5,
+                     con.size = 2,
+                     con.colour = "darkred",
+                     label.fontsize = c(25,20),
+                     alpha=0,
+                     expand = unit(2, "mm") , 
+                     radius = unit(2, "mm") , 
+                     label.buffer = unit(10, "mm") ,
+                     label.fill = rgb(1,1,1,0.4))
 
         }else{
-          b = b + geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F)  # Use a continuous color scale and make NA values transparent
+          b = b + geom_tile(data = pred, aes(x = x, y = y, fill = SPC20Unknown), show.legend = F)+
+            geom_point(aes(x=503383.759,
+                         y=5269955.079), color = "darkred", size = 5)
+        }
+        
+        if(SPC_site_2 != 0){
+            b = b +
+                 geom_text(aes(x = 502670, y = 5269205, label =  paste0("SPC : ", SPC_site_2,"%")), color = "white" , size = 7)
 
         }
       }
@@ -226,7 +294,7 @@ plot_list <- lapply(png_files, read_png_as_ggplot)
 combined_plot <- do.call(grid.arrange, c(plot_list, ncol = 4))  # Change ncol to adjust the number of columns
 
 ggsave("Output/Figs/Figure1.png",combined_plot, width = 2620*2, height = (2620*2)/2.3, units = "px")
-ggsave("Manuscript/Figs/Figure1.png", a, width = 1000 * 4, height = (500 * 4), units = "px")
+ggsave("Manuscript/Figs/Figure1.png", combined_plot, width = 1000 * 4, height = (500 * 4), units = "px")
 
 ```
 
@@ -234,7 +302,7 @@ ggsave("Manuscript/Figs/Figure1.png", a, width = 1000 * 4, height = (500 * 4), u
 #| cache: false
 #| echo: false
 #| warning: false
-#| fig-cap: Time Serie of the Seagrass Percent cover between 2016 and 2023 in Fort Espagnol and Kerouarc'h, two sites of the Auray river.
+#| fig-cap: "Time Series of Seagrass Percent Cover from 2016 to 2023 in Fort Espagnol and Kerouarc'h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. SPC values at the sampling points are provided at the bottom left corner of the plot if SPC is greater than 20%."
 #| label: fig-Maps
 #| fig-width: 10
 #| fig-height: 8

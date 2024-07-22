@@ -41,28 +41,14 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
-\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}{
-    \@ifstar
-      \xxxParagraphStar
-      \xxxParagraphNoStar
-  }
-  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
-  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}{
-    \@ifstar
-      \xxxSubParagraphStar
-      \xxxSubParagraphNoStar
-  }
-  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
-  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
-\makeatother
 
 
 \providecommand{\tightlist}{%
@@ -268,8 +254,8 @@ SPC = 172.06 \times NDVI - 22.18
 }\end{equation}
 
 Maps and analysis have then been performed using the \emph{Terra}
-package of R, in a \emph{Tidyverse} workflow
-\citep{hijmans2023terra, wickham2017easily}.
+package of R, in a \emph{Tidyverse} workflow \citetext{\citealp[
+]{hijmans2023terra}; \citealp{wickham2017easily}}.
 
 \section{Results}\label{results}
 
@@ -293,9 +279,11 @@ experienced a rapid expansion, covering almost the entire mudflat.
 
 }
 
-\caption{\label{fig-Maps}Time Serie of the Seagrass Percent cover
-between 2016 and 2023 in Fort Espagnol and Kerouarc'h, two sites of the
-Auray river.}
+\caption{\label{fig-Maps}Time Series of Seagrass Percent Cover from 2016
+to 2023 in Fort Espagnol and Kerouarc'h, two sites along the Auray
+River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W;
+2C - 47.583°N, 2.955°W. SPC values at the sampling points are provided
+at the bottom left corner of the plot if SPC is greater than 20\%.}
 
 \end{figure}%
 
