@@ -54,6 +54,8 @@ library(terra)
 library(patchwork)
 library(png)
 library(gridExtra)
+library(ggnewscale)
+library(ggspatial)
 
 ```
 
@@ -67,24 +69,43 @@ To map the seagrass extent over time, the Sentinel-2 constellation has been used
 
 | Acquisition Date (UTC) | Low Tide Time (UTC) | Time Difference with Low tide |
 |:---------------------:|:------------------:|:---------------------------:|
-|    2016-11-03 11:12    |       12 : 08       |          \+ 00 : 56           |
-|    2017-10-04 11:08    |       09 : 09       |          \- 01 : 59           |
-|    2018-09-29 11:08    |       12 : 43       |          \+ 01 : 35           |
+|    2016-11-03 11:12    |       12 : 08       |          \- 00 : 56           |
+|    2017-10-04 11:08    |       09 : 09       |          \+ 01 : 59           |
+|    2018-09-29 11:08    |       12 : 43       |          \- 01 : 35           |
 |    2019-09-14 11:06    |       10 : 28       |          \+ 00 : 38           |
 |    2020-08-04 11:06    |       10 : 45       |          \+ 00 : 21           |
 |    2021-10-08 11:09    |       11 : 18       |          \- 00 : 09           |
+|    2022-01-21 11:12    |       12 : 30       |          \- 01 : 18           |
+|    2022-03-07 11:09    |       13 : 19       |          \- 02 : 10           |
+|    2022-03-17 11:08    |       09 : 59       |          \+ 01 : 09           |
+|    2022-03-22 11:06    |       12 : 59       |          \- 01 : 53           |
+|    2022-06-15 11:06    |       10 : 40       |          \+ 00 : 26           |
+|    2022-06-30 11:06    |       11 : 01       |          \+ 00 : 05           |
+|    2022-07-15 11:06    |       11 : 19       |          \- 00 : 13           |
+|    2022-07-30 11:06    |       11 : 17       |          \- 00 : 11           |
 |    2022-08-29 11:06    |       11 : 27       |          \- 00 : 21           |
+|    2022-11-12 11:13    |       12 : 26       |          \- 01 : 13           |
+|    2023-01-12 11:13    |       13 : 34       |          \- 02 : 21           |
+|    2023-02-20 11:11    |       10 : 34       |          \+ 00 : 37           |
+|    2023-06-05 11:06    |       10 : 55       |          \+ 00 : 11           |
 |    2023-09-03 11:06    |       12 : 28       |          \- 01 : 22           |
 
-: Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River mudflats. Tide times were retrieved from the SHOM and correspond to the tides at the Locmariaquer tide gauge, situated approximately 2 km from the study sites. {#tbl-tide-data}
+: Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River mudflats. Tide times were obtained from SHOM and correspond to the tides at the Locmariaquer tide gauge, located approximately 2 km from the study sites. All usable images (i.e., cloud-free and at low tide) during the sampling period (2023–2023) were downloaded. For other years, a single image per year was used, selected based on the date of maximum seagrass extent. {#tbl-tide-data}
 
-The *Intertidal Classification of Europe: Categorising Reflectance of Emerged Areas of Marine vegetation with Sentinel-2* model has been applied to each Sentinel-2 image (ICE CREAMS, @Davies2024). It is a neural network classifier designed to identify and discriminate intertidal vegetation in Europe. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, @rouse1974monitoring), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of @zoffoli2020sentinel have been used to transform NDVI values into Seagrass Percent Cover ([@eq-std]). Only pixels with SPC values above 20%, corresponding to high biomass pixel have been considered in order to avoid confusion with other class of vegetation. 
+The *Intertidal Classification of Europe: Categorising Reflectance of Emerged Areas of Marine vegetation with Sentinel-2* model has been applied to each Sentinel-2 image (ICE CREAMS, @Davies2024). It is a neural network classifier designed to identify and discriminate intertidal vegetation in Europe. Pixels of the Magnoliopsida class (seagrasses) have been isolated, and the Normalized Difference Vegetation Index (NDVI, @rouse1974monitoring), a commonly used remote sensing biomass proxy for vegetation, has been employed. The equation of @zoffoli2020sentinel have been used to transform NDVI values into Seagrass Percent Cover ([@eq-std]). Only pixels with SPC values above 20%, corresponding to high biomass pixel have been considered in order to avoid confusion with other class of vegetation.
 
 $$
 SPC = 172.06 \times NDVI - 22.18
 $$ {#eq-std}
 
-Maps and analysis have then been performed using the *Terra* package of R, in a *Tidyverse* workflow [@hijmans2023terra ; @wickham2017easily]. 
+Maps and analysis have then been performed using the *Terra* package of R, in a *Tidyverse* workflow [@hijmans2023terra; @wickham2017easily].
+
+The total extent of each site/date is represented as an absolute area, taking into account the seagrass density of each pixel.
+
+$$
+\text{Extent}_{s,d} = \sum_{i=1}^{N_{s,d}} A_{\text{pixel}} \cdot D_i \\
+\text{where:} \\\quad \text{Extent}_{s,d} \text{ is the total seagrass extent at site } s \text{ and date } d, \\\quad N_{s,d} \text{ is the number of pixels classified as seagrass at site } s \text{ and date } d, \\\quad A_{\text{pixel}} = 100 \text{ m}^2 \text{ is the area of one pixel}, \\\quad D_i \text{ is the seagrass density of pixel } i \text{ (scaled from 0 to 1)}.
+$$
 
 # Results
 
@@ -298,6 +319,284 @@ ggsave("Manuscript/Figs/Figure1.png", combined_plot, width = 1000 * 4, height = 
 
 ```
 
+```{r processing Fig1 V2}
+#| cache: false
+#| echo: false
+#| warning: false
+#| eval: false
+
+rgb_list <- list.files("Data/RGB/", pattern = ".tif", recursive = TRUE, full.names = TRUE) %>%
+  as_tibble() %>% 
+  rename(path_rgb = "value") %>%  
+  mutate(name = gsub(".*/","",path_rgb),                 # Extract the filename
+         year = substr(name,1,4)) %>% 
+  dplyr::select(-name) %>% 
+  arrange(year)
+
+img_list <- list.files("Data/ICECREAMS/", pattern = ".tif", recursive = TRUE, full.names = TRUE) %>% 
+  as_tibble() %>% 
+  rename(path_pred = "value") %>% 
+  mutate(name = gsub(".*/","",path_pred),                 # Extract the filename
+         year = substr(name,12,15),                  # Extract the year from the filename
+         date = as.POSIXct(substr(name,12,19), format = "%Y%m%d")) %>% 
+  left_join(rgb_list, by = "year") %>% 
+  dplyr::filter(!str_detect(path_pred, "Monthly"))%>% 
+  arrange(year)
+
+# Extract and format the date
+mask <- "Data/mask/Intertidal_mask_Auray.shp" %>% 
+  vect() 
+
+
+for (i in 1:nrow(img_list)) {
+  
+  a <- rast(img_list$path_pred[i],lyrs = 5)
+  
+  if(i == 1){
+    stk_pred <- a
+  }else{
+    stk_pred <- c(stk_pred,a)
+  }
+  
+}
+
+
+sampling_point <- data.frame(x = c(503531.927, 503383.759),
+                          y = c(5273622.724,5269955.079)) %>% 
+          vect(geom=c("x", "y"), crs = crs(mask))
+        
+SPC_Sampling <- terra::extract(stk_pred,sampling_point)
+
+names(SPC_Sampling) <- c("ID",img_list$year) 
+
+Sampling_points <- SPC_Sampling %>% 
+  pivot_longer(-ID, names_to = "year", values_to = "SPC") %>% 
+  mutate(site = case_when(ID == 1 ~ "2C",
+                          T ~ "4B"),
+         x = case_when(ID == 2 ~ 503383.759,
+                          T ~ 503531.927),
+         y = case_when(ID == 2 ~ 5269955.079,
+                          T ~ 5273622.724),
+         x0 = case_when(ID == 2 ~ 503383.759,
+                          T ~ 503531.927),
+         y0 = case_when(ID == 2 ~ 5269955.079,
+                          T ~ 5273622.724),
+         SPC_chr = case_when(SPC < 20 ~ "< 20 %",
+                             T ~ paste0("~ ",round(SPC,0)," %"))) %>% 
+  dplyr::select(-ID)
+
+
+
+
+
+
+
+# Step 1: Define reference aspect ratio from Kerouarc'h
+ref_extent <- mask %>% 
+  filter(Site_Name == "Kerouarc'h") %>% 
+  ext()
+
+ref_aspect_ratio <- (xmax(ref_extent) - xmin(ref_extent)) / (ymax(ref_extent) - ymin(ref_extent))
+
+# Step 2: Loop through each site
+for (i in 1:nrow(mask)) {
+  mask_i <- mask %>% slice(i)
+  site_name <- mask_i$Site_Name
+  
+  # --- Crop prediction stack using mask only ---
+  stk_pred_i <- stk_pred %>% crop(mask_i, mask = TRUE)
+
+  df_pred <- stk_pred_i %>% as.data.frame(xy = TRUE)
+  names(df_pred) <- c("x", "y", img_list$year)
+
+  df_pred_plot <- df_pred %>% 
+    pivot_longer(-c("x", "y"), names_to = "year", values_to = "SPC") %>% 
+    filter(SPC > 30) %>%
+    mutate(site = site_name)
+
+  # --- Determine adjusted RGB cropping extent to match reference aspect ratio ---
+  pred_ext <- ext(stk_pred_i)
+
+  pred_width  <- xmax(pred_ext) - xmin(pred_ext)
+  pred_height <- ymax(pred_ext) - ymin(pred_ext)
+  pred_aspect <- pred_width / pred_height
+
+  # Start from the extent of stk_pred_i
+  xmin_val <- xmin(pred_ext)
+  xmax_val <- xmax(pred_ext)
+  ymin_val <- ymin(pred_ext)
+  ymax_val <- ymax(pred_ext)
+
+  if (pred_aspect > ref_aspect_ratio) {
+    # Too wide → pad height
+    target_height <- pred_width / ref_aspect_ratio
+    pad <- (target_height - pred_height) / 2
+    ymin_val <- ymin_val - pad
+    ymax_val <- ymax_val + pad
+  } else if (pred_aspect < ref_aspect_ratio) {
+    # Too tall → pad width
+    target_width <- pred_height * ref_aspect_ratio
+    pad <- (target_width - pred_width) / 2
+    xmin_val <- xmin_val - pad
+    xmax_val <- xmax_val + pad
+  }
+  # If already matching, do nothing
+
+  # Create adjusted extent for RGB cropping
+  rgb_crop_ext <- ext(xmin_val, xmax_val, ymin_val, ymax_val)
+
+  # --- Crop RGB using adjusted extent ---
+  stk_rgb <- rast(rgb_list$path_rgb) %>% crop(rgb_crop_ext)
+
+  # Split into RGB triplets and name them
+  rgb_list_rast <- map(1:(nlyr(stk_rgb) / 3), ~ stk_rgb[[ ((.x - 1) * 3 + 1):(3 * .x) ]])
+  names(rgb_list_rast) <- rgb_list$year
+
+  # Convert each 3-band raster to dataframe
+  df_list <- imap(rgb_list_rast, function(r, id) {
+    r <- setNames(r, c("R", "G", "B"))
+    as.data.frame(r, xy = TRUE) %>%
+      mutate(year = id)
+  })
+
+  df_all_rgb <- bind_rows(df_list) %>% 
+    mutate(site = site_name)
+
+  # --- Combine results ---
+  if (i == 1) {
+    df_rgb <- df_all_rgb
+    df_SPC <- df_pred_plot
+  } else {
+    df_rgb <- bind_rows(df_rgb, df_all_rgb)
+    df_SPC <- bind_rows(df_SPC, df_pred_plot)
+  }
+}
+
+# All years for Fort Espagnol
+years <- unique(df_rgb$year[df_rgb$site == "Fort Espagnol"])
+
+plots <- map(years, function(yr) {
+  base_plot <- ggplot() +
+    geom_raster(data = df_rgb %>% filter(site == "Fort Espagnol", year == yr),
+                aes(x = x, y = y, fill = rgb(R, G, B, maxColorValue = 0.9))) +
+    scale_fill_identity() +
+    new_scale_fill() +
+    geom_tile(data = df_SPC %>% filter(site == "Fort Espagnol", year == yr),
+                aes(x = x, y = y, fill = SPC), show.legend = FALSE) +
+    scale_fill_viridis_c(name = "SPC") +
+               ggforce::geom_mark_ellipse(data = Sampling_points %>% dplyr::filter(site == "2C", year == yr),
+                                          mapping = aes(x=x,
+                         y=y,
+                         x0 = x-100, 
+                         y0 = y-100,
+                         label = site,
+                         description = SPC_chr) ,
+                         linewidth=0.3,
+                         fill="darkred",
+                         color = NA,
+                         show.legend=F,
+                         label.hjust = 0.5,
+                         con.size = 2,
+                         con.colour = "darkred",
+                         label.fontsize = c(25,20),
+                         alpha=0.5,
+                         expand = unit(2, "mm") , 
+                         radius = unit(2, "mm") , 
+                         label.buffer = unit(10, "mm") ,
+                         label.fill = rgb(1,1,1,0.4))+
+    coord_equal() +
+    theme_classic() +
+    ggtitle(paste("Fort Espagnol –", yr)) +
+    theme(
+      line = element_blank(),
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank(),
+      strip.background = element_blank(),
+      plot.title = element_text(size = 9)
+    )+
+    theme_void()
+  
+  # Only add scale bar to the first plot
+  if (yr == years[1]) {
+    base_plot + annotation_scale(location = "bl")
+  } else {
+    base_plot
+  }
+})
+
+p1 <- wrap_plots(plots, nrow = 1) + plot_layout(guides = "collect")
+
+
+
+# All years for Fort Espagnol
+years <- unique(df_rgb$year[df_rgb$site == "Kerouarc'h"])
+
+plots <- map(years, function(yr) {
+  base_plot <- ggplot() +
+    geom_tile(data = df_rgb %>% filter(site == "Kerouarc'h", year == yr),
+                aes(x = x, y = y, fill = rgb(R, G, B, maxColorValue = 0.9))) +
+    scale_fill_identity() +
+    new_scale_fill() +
+    geom_raster(data = df_SPC %>% filter(site == "Kerouarc'h", year == yr),
+                aes(x = x, y = y, fill = SPC), show.legend = FALSE) +
+    scale_fill_viridis_c(name = "SPC") +
+               ggforce::geom_mark_ellipse(data = Sampling_points %>% dplyr::filter(site == "4B", year == yr),
+                                          mapping = aes(x=x,
+                         y=y,
+                         x0 = x+150, 
+                         y0 = y-100,
+                         label = site,
+                         description = SPC_chr) ,
+                         linewidth=0.3,
+                         fill="darkred",
+                         color = NA,
+                         show.legend=F,
+                         label.hjust = 0.5,
+                         con.size = 2,
+                         con.colour = "darkred",
+                         label.fontsize = c(25,20),
+                         alpha=0.5,
+                         expand = unit(2, "mm") , 
+                         radius = unit(2, "mm") , 
+                         label.buffer = unit(10, "mm") ,
+                         label.fill = rgb(1,1,1,0.4))+
+    coord_equal() +
+    theme_classic() +
+    ggtitle(paste("Kerouarc'h –", yr)) +
+    theme(
+      line = element_blank(),
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank(),
+      strip.background = element_blank(),
+      plot.title = element_text(size = 9)
+    )+
+    theme_void()
+  
+  # Only add scale bar to the first plot
+  if (yr == years[1]) {
+    base_plot + annotation_scale(location = "bl")
+  } else {
+    base_plot
+  }
+})
+
+p2 <- wrap_plots(plots, nrow = 1) + plot_layout(guides = "collect")
+
+
+plot_all <- p1 / p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+
+ggsave("Manuscript/Figs/plot_all.pdf", plot = plot_all, device = cairo_pdf, width = 10, height = 7, dpi = 300)
+
+
+``` 
+
+```{r}
+
+```
+
+
 ```{r Fig1}
 #| cache: false
 #| echo: false
@@ -311,7 +610,6 @@ ggsave("Manuscript/Figs/Figure1.png", combined_plot, width = 1000 * 4, height = 
 knitr::include_graphics("Figs/Figure1.png")
 
 ```
-
 
 ## Evolution of the extent and density of the meadow over time
 
@@ -469,4 +767,119 @@ ggsave("Manuscript/Figs/Figure2.png", a, width = 1000 * 4, height = (500 * 4), u
 #| out-width: "100%"
 
 knitr::include_graphics("Figs/Figure2.png")
+```
+
+## Monthly data
+
+```{r Monthly data processing}
+#| cache: false
+#| echo: false
+#| warning: false
+#| eval: false
+
+library(ggforce)  # for geom_mark_ellipse
+
+filelist <- "Data/ICECREAMS/Monthly" %>% 
+  list.files(full.names = T) %>% 
+  as_tibble() %>% 
+  rename(path = "value") %>% 
+  mutate(filename = gsub(".*/","",path),
+         date = substr(filename, 12,19) %>% 
+           as.Date(format = "%Y%m%d"),
+         doy = yday(date)) %>% 
+  arrange(date)
+
+ggplot(filelist, aes(x = date, y = 0)) +
+  geom_point(size = 3) +
+  # geom_label(aes(label = date), vjust = -1.2, size = 3) +
+  geom_mark_ellipse(aes(group = date, label = date), fill = NA, label.fill = NA) +
+  geom_hline(yintercept = 0, color = "gray") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank()
+  ) +
+  labs(x = "Date", y = NULL, title = "1D Time Diagram with Grouped Ellipses")
+```
+
+```{r extent retrieving overtime}
+#| cache: false
+#| echo: false
+#| warning: false
+#| eval: false
+
+mask <- "Data/mask/Intertidal_mask_Auray.shp" %>% 
+  sf::read_sf()
+#### Pred
+
+for (i in 1:nrow(filelist)) {
+  
+  if(i == 1){
+    stk_SPC <- rast(filelist$path[i]) %>% 
+      dplyr::filter(class_probs > 0.95,
+                    SPC > 20)
+    stk_SPC <- stk_SPC$out_class
+  }else{
+    a <- rast(filelist$path[i]) %>% 
+      dplyr::filter(class_probs > 0.95,
+                    SPC > 20)
+    a <- a$SPC
+    
+    stk_SPC <- c(stk_SPC,a)
+  }
+  
+}
+names(stk_SPC) <- filelist$date
+
+sp_mask <- mask %>% 
+  dplyr::filter(Site_Name == "Fort Espagnol")
+ker_mask <- mask %>% 
+  dplyr::filter(Site_Name == "Kerouarc'h")
+
+
+stk_sp_SPC <- stk_SPC %>% 
+  crop(sp_mask, mask = T)
+
+stk_ker_SPC <- stk_SPC %>% 
+  crop(ker_mask, mask = T)
+
+
+df_ker_SPC <- stk_ker_SPC %>% 
+  as.data.frame(xy = T) %>% 
+  pivot_longer(-c(x,y),names_to = "date", values_to = "SPC") %>% 
+  group_by(x,y,date) %>% 
+  reframe(relative_area = 10*10*(SPC/100)) %>% 
+  ungroup() %>% 
+  dplyr::filter(!is.na(relative_area)) %>% 
+  group_by(date) %>%
+  reframe(area_totale = n()*10*10,
+          avg_SPC = mean(relative_area),
+          relative_area = sum(relative_area))%>% 
+  mutate(date = as.Date(date,format = "%Y-%m-%d"))
+
+df_ker_SPC %>% 
+  mutate(doy = yday(date)) %>% 
+ggplot( aes(x = date, y = area_totale)) +
+  geom_point()+
+  geom_line()
+
+df_sp_SPC <- stk_sp_SPC %>% 
+  as.data.frame(xy = T) %>% 
+  pivot_longer(-c(x,y),names_to = "date", values_to = "SPC") %>% 
+  group_by(x,y,date) %>% 
+  reframe(relative_area = 10*10*(SPC/100)) %>% 
+  ungroup() %>% 
+  dplyr::filter(!is.na(relative_area)) %>% 
+  group_by(date) %>%
+  reframe(area_totale = n()*10*10,
+          avg_SPC = mean(relative_area),
+          relative_area = sum(relative_area))%>% 
+  mutate(date = as.Date(date,format = "%Y-%m-%d"))
+
+df_sp_SPC %>% 
+  mutate(doy = yday(date)) %>% 
+ggplot( aes(x = date, y = relative_area)) +
+  geom_point()+
+  geom_line()
 ```
