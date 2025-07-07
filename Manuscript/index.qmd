@@ -42,6 +42,7 @@ editor_options:
   chunk_output_type: console
 ---
 
+
 ```{r library}
 #| cache: false
 #| echo: false
@@ -56,6 +57,21 @@ library(png)
 library(gridExtra)
 library(ggnewscale)
 library(ggspatial)
+library(ggrastr)
+```
+
+```{r create rgb 2024}
+#| cache: false
+#| echo: false
+#| warning: false
+#| eval: false
+
+model <- rast(rgb_list$path_rgb[1])
+img2024 <- rast("Data/RGB/T30TVT_20240808T110619_TCI_10m.jp2") %>% 
+  crop(ext(model)) %>% 
+  resample(model)
+
+writeRaster(img2024,"Data/RGB/2024_RGB.tiff", overwrite = T)
 
 ```
 
@@ -89,6 +105,7 @@ To map the seagrass extent over time, the Sentinel-2 constellation has been used
 |    2023-02-20 11:11    |       10 : 34       |          \+ 00 : 37           |
 |    2023-06-05 11:06    |       10 : 55       |          \+ 00 : 11           |
 |    2023-09-03 11:06    |       12 : 28       |          \- 01 : 22           |
+|    2024-08-08 11:09    |       12 : 32       |          \- 01 : 23           |
 
 : Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River mudflats. Tide times were obtained from SHOM and correspond to the tides at the Locmariaquer tide gauge, located approximately 2 km from the study sites. All usable images (i.e., cloud-free and at low tide) during the sampling period (2023–2023) were downloaded. For other years, a single image per year was used, selected based on the date of maximum seagrass extent. {#tbl-tide-data}
 
@@ -350,7 +367,12 @@ mask <- "Data/mask/Intertidal_mask_Auray.shp" %>%
 
 for (i in 1:nrow(img_list)) {
   
-  a <- rast(img_list$path_pred[i],lyrs = 5)
+  if(i == 9){
+   a <- rast(img_list$path_pred[i],lyrs = 4) %>% 
+     extend(ext(stk_pred))
+  }else{
+   a <- rast(img_list$path_pred[i],lyrs = 5)
+  }
   
   if(i == 1){
     stk_pred <- a
@@ -477,8 +499,8 @@ years <- unique(df_rgb$year[df_rgb$site == "Fort Espagnol"])
 
 plots <- map(years, function(yr) {
   base_plot <- ggplot() +
-    geom_raster(data = df_rgb %>% filter(site == "Fort Espagnol", year == yr),
-                aes(x = x, y = y, fill = rgb(R, G, B, maxColorValue = 0.9))) +
+    rasterise(geom_raster(data = df_rgb %>% filter(site == "Fort Espagnol", year == yr),
+                aes(x = x, y = y, fill = rgb(R, G, B, maxColorValue = 0.9))), dpi = 300) +
     scale_fill_identity() +
     new_scale_fill() +
     geom_tile(data = df_SPC %>% filter(site == "Fort Espagnol", year == yr),
@@ -487,8 +509,8 @@ plots <- map(years, function(yr) {
                ggforce::geom_mark_ellipse(data = Sampling_points %>% dplyr::filter(site == "2C", year == yr),
                                           mapping = aes(x=x,
                          y=y,
-                         x0 = x-100, 
-                         y0 = y-100,
+                         # x0 = x+00, 
+                         # y0 = y-100,
                          label = site,
                          description = SPC_chr) ,
                          linewidth=0.3,
@@ -496,12 +518,12 @@ plots <- map(years, function(yr) {
                          color = NA,
                          show.legend=F,
                          label.hjust = 0.5,
-                         con.size = 2,
+                         con.size = 1,
                          con.colour = "darkred",
-                         label.fontsize = c(25,20),
+                         label.fontsize = c(15,10),
                          alpha=0.5,
-                         expand = unit(2, "mm") , 
-                         radius = unit(2, "mm") , 
+                         expand = unit(1, "mm") , 
+                         radius = unit(1, "mm") , 
                          label.buffer = unit(10, "mm") ,
                          label.fill = rgb(1,1,1,0.4))+
     coord_equal() +
@@ -534,12 +556,12 @@ years <- unique(df_rgb$year[df_rgb$site == "Kerouarc'h"])
 
 plots <- map(years, function(yr) {
   base_plot <- ggplot() +
-    geom_tile(data = df_rgb %>% filter(site == "Kerouarc'h", year == yr),
-                aes(x = x, y = y, fill = rgb(R, G, B, maxColorValue = 0.9))) +
+    rasterise(geom_tile(data = df_rgb %>% filter(site == "Kerouarc'h", year == yr),
+                aes(x = x, y = y, fill = rgb(R, G, B, maxColorValue = 0.9))), dpi = 300) +
     scale_fill_identity() +
     new_scale_fill() +
     geom_raster(data = df_SPC %>% filter(site == "Kerouarc'h", year == yr),
-                aes(x = x, y = y, fill = SPC), show.legend = FALSE) +
+                aes(x = x, y = y, fill = SPC)) +
     scale_fill_viridis_c(name = "SPC") +
                ggforce::geom_mark_ellipse(data = Sampling_points %>% dplyr::filter(site == "4B", year == yr),
                                           mapping = aes(x=x,
@@ -553,12 +575,12 @@ plots <- map(years, function(yr) {
                          color = NA,
                          show.legend=F,
                          label.hjust = 0.5,
-                         con.size = 2,
+                         con.size = 1,
                          con.colour = "darkred",
-                         label.fontsize = c(25,20),
+                         label.fontsize = c(15,10),
                          alpha=0.5,
-                         expand = unit(2, "mm") , 
-                         radius = unit(2, "mm") , 
+                         expand = unit(1, "mm") , 
+                         radius = unit(1, "mm") , 
                          label.buffer = unit(10, "mm") ,
                          label.fill = rgb(1,1,1,0.4))+
     coord_equal() +
@@ -587,9 +609,7 @@ p2 <- wrap_plots(plots, nrow = 1) + plot_layout(guides = "collect")
 
 plot_all <- p1 / p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 
-ggsave("Manuscript/Figs/plot_all.pdf", plot = plot_all, device = cairo_pdf, width = 10, height = 7, dpi = 300)
-
-
+ggsave("Manuscript/Figs/plot_all.pdf", plot = plot_all, device = cairo_pdf, width = 10, height = 5, dpi = 300)
 ``` 
 
 ```{r}
