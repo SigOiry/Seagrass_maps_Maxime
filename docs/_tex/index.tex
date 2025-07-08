@@ -1,25 +1,27 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   number]{elsarticle}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -37,22 +39,32 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -64,17 +76,35 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{elsarticle-num}
+
 
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -117,15 +147,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[]{natbib}
-\bibliographystyle{elsarticle-num}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Seagrass mapping in two mudflats in the Auray River},
   pdfauthor={Simon Oiry; Bede Ffinian Rowe Davies},
@@ -136,6 +160,7 @@
   citecolor={Blue},
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
+
 
 \setlength{\parindent}{6pt}
 \begin{document}
@@ -178,6 +203,7 @@ seagrasses.
 \end{keyword}
 \end{frontmatter}
     
+
 The data and scripts used for this work can be found
 \href{https://github.com/SigOiry/Seagrass_maps_Maxime}{here}.
 
@@ -186,23 +212,28 @@ The data and scripts used for this work can be found
 \subsection{Seagrass mapping using
 Sentinel-2}\label{seagrass-mapping-using-sentinel-2}
 
-To map the seagrass extent over time, the Sentinel-2 constellation has
-been used. Level-2 images, which are already orthorectified and
-atmospherically corrected, have been downloaded using the Copernicus
-Platform \citep{Copernicus_Sentinel}. One low tide, cloud-free image per
-year, nearest to the period of the annual maximum seagrass biomass at
-this latitude has been used. A total of 8 images have been used
+To map the seagrass extent over time, the Sentinel-2 constellation was
+used. Level-2 images, which are already orthorectified and
+atmospherically corrected, were downloaded from the Copernicus Platform
+\citep{Copernicus_Sentinel}. For most years, one low-tide, cloud-free
+image per year---closest to the period of peak annual seagrass biomass
+at this latitude---was selected. However, during the sampling years
+(2021--2022), all available low-tide, cloud-free images were used to
+characterize seagrass phenology. In total, 21 images were used
 (Table~\ref{tbl-tide-data}).
 
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3194}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4028}}@{}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3194}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2778}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4028}}@{}}
 \caption{Acquisition dates of Sentinel-2 images used to map seagrass in
-the Auray River mudflats. Tide times were retrieved from the SHOM and
-correspond to the tides at the Locmariaquer tide gauge, situated
-approximately 2 km from the study
-sites.}\label{tbl-tide-data}\tabularnewline
+the Auray River mudflats. Tide times were obtained from SHOM and
+correspond to the tides at the Locmariaquer tide gauge, located
+approximately 2 km from the study sites. All usable images (i.e.,
+cloud-free and at low tide) during the sampling period (2023--2023) were
+downloaded. For other years, a single image per year was used, selected
+based on the date of maximum seagrass
+extent.}\label{tbl-tide-data}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 Acquisition Date (UTC)
@@ -225,14 +256,27 @@ Time Difference with Low tide
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-2016-11-03 11:12 & 12 : 08 & + 00 : 56 \\
-2017-10-04 11:08 & 09 : 09 & - 01 : 59 \\
-2018-09-29 11:08 & 12 : 43 & + 01 : 35 \\
+2016-11-03 11:12 & 12 : 08 & - 00 : 56 \\
+2017-10-04 11:08 & 09 : 09 & + 01 : 59 \\
+2018-09-29 11:08 & 12 : 43 & - 01 : 35 \\
 2019-09-14 11:06 & 10 : 28 & + 00 : 38 \\
 2020-08-04 11:06 & 10 : 45 & + 00 : 21 \\
 2021-10-08 11:09 & 11 : 18 & - 00 : 09 \\
+2022-01-21 11:12 & 12 : 30 & - 01 : 18 \\
+2022-03-07 11:09 & 13 : 19 & - 02 : 10 \\
+2022-03-17 11:08 & 09 : 59 & + 01 : 09 \\
+2022-03-22 11:06 & 12 : 59 & - 01 : 53 \\
+2022-06-15 11:06 & 10 : 40 & + 00 : 26 \\
+2022-06-30 11:06 & 11 : 01 & + 00 : 05 \\
+2022-07-15 11:06 & 11 : 19 & - 00 : 13 \\
+2022-07-30 11:06 & 11 : 17 & - 00 : 11 \\
 2022-08-29 11:06 & 11 : 27 & - 00 : 21 \\
+2022-11-12 11:13 & 12 : 26 & - 01 : 13 \\
+2023-01-12 11:13 & 13 : 34 & - 02 : 21 \\
+2023-02-20 11:11 & 10 : 34 & + 00 : 37 \\
+2023-06-05 11:06 & 10 : 55 & + 00 : 11 \\
 2023-09-03 11:06 & 12 : 28 & - 01 : 22 \\
+2024-08-08 11:09 & 12 : 32 & - 01 : 23 \\
 \end{longtable}
 
 The \emph{Intertidal Classification of Europe: Categorising Reflectance
@@ -254,36 +298,59 @@ SPC = 172.06 \times NDVI - 22.18
 }\end{equation}
 
 Maps and analysis have then been performed using the \emph{Terra}
-package of R, in a \emph{Tidyverse} workflow \citetext{\citealp[
-]{hijmans2023terra}; \citealp{wickham2017easily}}.
+package of R, in a \emph{Tidyverse} workflow
+\citep{hijmans2023terra, wickham2017easily}.
+
+The total extent of each site/date is represented as an absolute area,
+taking into account the seagrass density of each pixel.
+
+\[
+\text{Extent}_{s,d} = \sum_{i=1}^{N_{s,d}} A_{\text{pixel}} \cdot D_i
+\]
+
+where:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\text{Extent}_{s,d}\) is the total seagrass extent at site \(s\) and
+  date \(d\)\\
+\item
+  \(N_{s,d}\) is the number of pixels classified as seagrass at site
+  \(s\) and date \(d\)\\
+\item
+  \(A_{\text{pixel}} = 100\ \text{m}^2\) is the area of one pixel\\
+\item
+  \(D_i\) is the seagrass density of pixel \(i\) (scaled from 0 to 1)
+\end{itemize}
 
 \section{Results}\label{results}
 
 \subsection{Evolution of the spatial distribution of seagrasses over
 time}\label{evolution-of-the-spatial-distribution-of-seagrasses-over-time}
 
-The time series of the seagrass percent cover between 2016 and 2023
-shows an overall increase in meadow extent at both
-sites(Figure~\ref{fig-Maps}). From 2019 onwards, the meadows became
-denser at Fort Espagnol, particularly in the northern part of the
-mudflat. At Kerouarc'h, the meadow was limited to small, sparse patches
-between 2016 and 2019. However, from 2021 onward, the seagrass meadow
-experienced a rapid expansion, covering almost the entire mudflat.
+The time series of the seagrass percent cover between 2016 and 2024
+shows an overall increase in meadow extent at both sites
+(Figure~\ref{fig-Maps}). From 2019 onwards, the meadows became denser at
+Fort Espagnol, particularly in the northern part of the mudflat. At
+Kerouarc'h, the meadow was limited to small, sparse patches between 2016
+and 2019. However, from 2021 onward, the seagrass meadow experienced a
+rapid expansion, covering almost the entire mudflat.
 
 \phantomsection\label{cell-fig-Maps}
 \begin{figure}[H]
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{Figs/Figure1.png}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{Figs/Figure1.png}
 
 }
 
 \caption{\label{fig-Maps}Time Series of Seagrass Percent Cover from 2016
-to 2023 in Fort Espagnol and Kerouarc'h, two sites along the Auray
+to 2024 in Fort Espagnol and Kerouarc'h, two sites along the Auray
 River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W;
-2C - 47.583°N, 2.955°W. SPC values at the sampling points are provided
-at the bottom left corner of the plot if SPC is greater than 20\%.}
+2C - 47.583°N, 2.955°W. Labels are showing SPC values for each
+Site/Year.}
 
 \end{figure}%
 
@@ -306,21 +373,46 @@ seagrass with remote sensing techniques.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{Figs/Figure2.png}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{Figs/Figure2.png}
 
 }
 
 \caption{\label{fig-Extent}Descritpion of the evolution of seagrass over
-time. A - Relative sesgrass extent of each site. 1 means maximum extent
-of the time serie for the site. B - Boxplot of the density of seagrass
-for each site at each date. The lower and upper hinges correspond to the
-first and third quartiles (the 25th and 75th percentiles). Whiskers are
-to 1.5 * IQR (Inter-Quartile Range) from the hinge.}
+time. A - Relative seagrass extent of each site. A value of 1 means
+maximum extent of the time serie for the site. B - Boxplot of the
+density of seagrass for each site at each date. The lower and upper
+hinges correspond to the first and third quartiles (the 25th and 75th
+percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the
+hinge.}
 
 \end{figure}%
 
+\subsection{Monthly data}\label{monthly-data}
 
-  \bibliography{library.bib}
+\phantomsection\label{cell-fig-Pheno}
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{Figs/Figure3.png}
+
+}
+
+\caption{\label{fig-Pheno}Evolution of the seagrass cover at Kerouarc'h
+and Fort Espagnol during 2022 and 2023}
+
+\end{figure}%
+
+Figure~\ref{fig-Pheno} shows a strong seasonal variation in seagrass
+cover at both sites. Seagrass cover is nearly absent during winter and
+begins to increase in early summer (July), reaching peak extent and
+density around September. Kerouarc'h hosts the largest meadows, covering
+more than 40 hectares on August 29, 2022, while Fort Espagnol reaches a
+maximum extent of 2.5 hectares during the same period.
+
+
+\bibliography{library.bib}
+
 
 
 \end{document}

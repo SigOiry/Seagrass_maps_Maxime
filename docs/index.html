@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Simon Oiry">
 <meta name="author" content="Bede Ffinian Rowe Davies">
-<meta name="dcterms.date" content="2024-07-22">
+<meta name="dcterms.date" content="2025-07-08">
 <meta name="keywords" content="Remote Sensing, Sentinel-2, Seagrass">
 
 <title>Seagrass mapping in two mudflats in the Auray River</title>
@@ -48,15 +48,16 @@ div.csl-indent {
 
 
 <script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1787b60bcbaecd18fb94062f4d294b29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -67,7 +68,7 @@ div.csl-indent {
   });
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -103,10 +104,10 @@ window.Quarto = {
 <meta name="citation_keywords" content="Remote Sensing,Sentinel-2,Seagrass">
 <meta name="citation_author" content="Simon Oiry">
 <meta name="citation_author" content="Bede Ffinian Rowe Davies">
-<meta name="citation_publication_date" content="2024-07-22">
-<meta name="citation_cover_date" content="2024-07-22">
-<meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-07-22">
+<meta name="citation_publication_date" content="2025-07-08">
+<meta name="citation_cover_date" content="2025-07-08">
+<meta name="citation_year" content="2025">
+<meta name="citation_online_date" content="2025-07-08">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Copernicus open access hub;,citation_author=Copernicus;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://browser.dataspace.copernicus.eu/;">
 <meta name="citation_reference" content="citation_title=Monitoring vegetation systems in the great plains with ERTS;,citation_author=John Wilson Rouse;,citation_author=Rüdiger H Haas;,citation_author=John A Schell;,citation_author=Donald W Deering;,citation_author=others;,citation_publication_date=1974;,citation_cover_date=1974;,citation_year=1974;,citation_issue=1;,citation_volume=351;,citation_journal_title=NASA Spec. Publ;">
@@ -117,7 +118,7 @@ window.Quarto = {
 <meta name="citation_reference" content="citation_title=Easily install and load the “tidyverse”;,citation_author=Hadley Wickham;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=1;,citation_volume=1;,citation_journal_title=R package version;">
 </head>
 
-<body>
+<body class="quarto-light">
 
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
@@ -157,7 +158,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">July 22, 2024</p>
+              <p class="date">July 8, 2025</p>
             </div>
           </div>
           
@@ -198,11 +199,12 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#evolution-of-the-spatial-distribution-of-seagrasses-over-time" id="toc-evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="nav-link" data-scroll-target="#evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</a></li>
   <li><a href="#evolution-of-the-extent-and-density-of-the-meadow-over-time" id="toc-evolution-of-the-extent-and-density-of-the-meadow-over-time" class="nav-link" data-scroll-target="#evolution-of-the-extent-and-density-of-the-meadow-over-time"><span class="header-section-number">2.2</span> Evolution of the extent and density of the meadow over time</a></li>
+  <li><a href="#monthly-data" id="toc-monthly-data" class="nav-link" data-scroll-target="#monthly-data"><span class="header-section-number">2.3</span> Monthly data</a></li>
   </ul></li>
   </ul>
 </nav>
 </div>
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -216,14 +218,14 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Materials &amp; Methods</h1>
 <section id="seagrass-mapping-using-sentinel-2" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="seagrass-mapping-using-sentinel-2"><span class="header-section-number">1.1</span> Seagrass mapping using Sentinel-2</h2>
-<p>To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected, have been downloaded using the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. One low tide, cloud-free image per year, nearest to the period of the annual maximum seagrass biomass at this latitude has been used. A total of 8 images have been used (<a href="#tbl-tide-data" class="quarto-xref">Table&nbsp;1</a>).</p>
-<div id="tbl-tide-data" class="quarto-float anchored">
+<p>To map the seagrass extent over time, the Sentinel-2 constellation was used. Level-2 images, which are already orthorectified and atmospherically corrected, were downloaded from the Copernicus Platform <span class="citation" data-cites="Copernicus_Sentinel">(<a href="#ref-Copernicus_Sentinel" role="doc-biblioref">Copernicus 2024</a>)</span>. For most years, one low-tide, cloud-free image per year—closest to the period of peak annual seagrass biomass at this latitude—was selected. However, during the sampling years (2021–2022), all available low-tide, cloud-free images were used to characterize seagrass phenology. In total, 21 images were used (<a href="#tbl-tide-data" class="quarto-xref">Table&nbsp;1</a>).</p>
+<div id="tbl-tide-data" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tide-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River mudflats. Tide times were retrieved from the SHOM and correspond to the tides at the Locmariaquer tide gauge, situated approximately 2 km from the study sites.
+Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the Auray River mudflats. Tide times were obtained from SHOM and correspond to the tides at the Locmariaquer tide gauge, located approximately 2 km from the study sites. All usable images (i.e., cloud-free and at low tide) during the sampling period (2023–2023) were downloaded. For other years, a single image per year was used, selected based on the date of maximum seagrass extent.
 </figcaption>
 <div aria-describedby="tbl-tide-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 31%">
 <col style="width: 27%">
@@ -240,17 +242,17 @@ Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the
 <tr class="odd">
 <td style="text-align: center;">2016-11-03 11:12</td>
 <td style="text-align: center;">12 : 08</td>
-<td style="text-align: center;">+ 00 : 56</td>
+<td style="text-align: center;">- 00 : 56</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2017-10-04 11:08</td>
 <td style="text-align: center;">09 : 09</td>
-<td style="text-align: center;">- 01 : 59</td>
+<td style="text-align: center;">+ 01 : 59</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">2018-09-29 11:08</td>
 <td style="text-align: center;">12 : 43</td>
-<td style="text-align: center;">+ 01 : 35</td>
+<td style="text-align: center;">- 01 : 35</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2019-09-14 11:06</td>
@@ -268,14 +270,79 @@ Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the
 <td style="text-align: center;">- 00 : 09</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">2022-01-21 11:12</td>
+<td style="text-align: center;">12 : 30</td>
+<td style="text-align: center;">- 01 : 18</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2022-03-07 11:09</td>
+<td style="text-align: center;">13 : 19</td>
+<td style="text-align: center;">- 02 : 10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2022-03-17 11:08</td>
+<td style="text-align: center;">09 : 59</td>
+<td style="text-align: center;">+ 01 : 09</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2022-03-22 11:06</td>
+<td style="text-align: center;">12 : 59</td>
+<td style="text-align: center;">- 01 : 53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2022-06-15 11:06</td>
+<td style="text-align: center;">10 : 40</td>
+<td style="text-align: center;">+ 00 : 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2022-06-30 11:06</td>
+<td style="text-align: center;">11 : 01</td>
+<td style="text-align: center;">+ 00 : 05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2022-07-15 11:06</td>
+<td style="text-align: center;">11 : 19</td>
+<td style="text-align: center;">- 00 : 13</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2022-07-30 11:06</td>
+<td style="text-align: center;">11 : 17</td>
+<td style="text-align: center;">- 00 : 11</td>
+</tr>
+<tr class="odd">
 <td style="text-align: center;">2022-08-29 11:06</td>
 <td style="text-align: center;">11 : 27</td>
 <td style="text-align: center;">- 00 : 21</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">2022-11-12 11:13</td>
+<td style="text-align: center;">12 : 26</td>
+<td style="text-align: center;">- 01 : 13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2023-01-12 11:13</td>
+<td style="text-align: center;">13 : 34</td>
+<td style="text-align: center;">- 02 : 21</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2023-02-20 11:11</td>
+<td style="text-align: center;">10 : 34</td>
+<td style="text-align: center;">+ 00 : 37</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2023-06-05 11:06</td>
+<td style="text-align: center;">10 : 55</td>
+<td style="text-align: center;">+ 00 : 11</td>
+</tr>
+<tr class="even">
 <td style="text-align: center;">2023-09-03 11:06</td>
 <td style="text-align: center;">12 : 28</td>
 <td style="text-align: center;">- 01 : 22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2024-08-08 11:09</td>
+<td style="text-align: center;">12 : 32</td>
+<td style="text-align: center;">- 01 : 23</td>
 </tr>
 </tbody>
 </table>
@@ -286,23 +353,37 @@ Table&nbsp;1: Acquisition dates of Sentinel-2 images used to map seagrass in the
 <p><span id="eq-std"><span class="math display">\[
 SPC = 172.06 \times NDVI - 22.18
 \tag{1}\]</span></span></p>
-<p>Maps and analysis have then been performed using the <em>Terra</em> package of R, in a <em>Tidyverse</em> workflow <span class="citation" data-cites="hijmans2023terra wickham2017easily">(<a href="#ref-hijmans2023terra" role="doc-biblioref">Hijmans 2023</a> ; <a href="#ref-wickham2017easily" role="doc-biblioref">Wickham 2017</a>)</span>.</p>
+<p>Maps and analysis have then been performed using the <em>Terra</em> package of R, in a <em>Tidyverse</em> workflow <span class="citation" data-cites="hijmans2023terra wickham2017easily">(<a href="#ref-hijmans2023terra" role="doc-biblioref">Hijmans 2023</a>; <a href="#ref-wickham2017easily" role="doc-biblioref">Wickham 2017</a>)</span>.</p>
+<p>The total extent of each site/date is represented as an absolute area, taking into account the seagrass density of each pixel.</p>
+<p><span class="math display">\[
+\text{Extent}_{s,d} = \sum_{i=1}^{N_{s,d}} A_{\text{pixel}} \cdot D_i
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(\text{Extent}_{s,d}\)</span> is the total seagrass extent at site <span class="math inline">\(s\)</span> and date <span class="math inline">\(d\)</span><br>
+</li>
+<li><span class="math inline">\(N_{s,d}\)</span> is the number of pixels classified as seagrass at site <span class="math inline">\(s\)</span> and date <span class="math inline">\(d\)</span><br>
+</li>
+<li><span class="math inline">\(A_{\text{pixel}} = 100\ \text{m}^2\)</span> is the area of one pixel<br>
+</li>
+<li><span class="math inline">\(D_i\)</span> is the seagrass density of pixel <span class="math inline">\(i\)</span> (scaled from 0 to 1)</li>
+</ul>
 </section>
 </section>
 <section id="results" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Results</h1>
 <section id="evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</h2>
-<p>The time series of the seagrass percent cover between 2016 and 2023 shows an overall increase in meadow extent at both sites(<a href="#fig-Maps" class="quarto-xref">Figure&nbsp;1</a>). From 2019 onwards, the meadows became denser at Fort Espagnol, particularly in the northern part of the mudflat. At Kerouarc’h, the meadow was limited to small, sparse patches between 2016 and 2019. However, from 2021 onward, the seagrass meadow experienced a rapid expansion, covering almost the entire mudflat.</p>
+<p>The time series of the seagrass percent cover between 2016 and 2024 shows an overall increase in meadow extent at both sites (<a href="#fig-Maps" class="quarto-xref">Figure&nbsp;1</a>). From 2019 onwards, the meadows became denser at Fort Espagnol, particularly in the northern part of the mudflat. At Kerouarc’h, the meadow was limited to small, sparse patches between 2016 and 2019. However, from 2021 onward, the seagrass meadow experienced a rapid expansion, covering almost the entire mudflat.</p>
 <div id="cell-fig-Maps" class="cell">
 <div class="cell-output-display">
-<div id="fig-Maps" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-Maps" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-Maps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="Figs/Figure1.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1"><img src="Figs/Figure1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<a href="Figs/Figure1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort Espagnol and Kerouarc’h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. Labels are showing SPC values for each Site/Year."><img src="Figs/Figure1.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Maps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2023 in Fort Espagnol and Kerouarc’h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. SPC values at the sampling points are provided at the bottom left corner of the plot if SPC is greater than 20%.
+Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort Espagnol and Kerouarc’h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. Labels are showing SPC values for each Site/Year.
 </figcaption>
 </figure>
 </div>
@@ -314,22 +395,36 @@ Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2023 in Fort E
 <p>The maximum total extent of seagrass was reached in 2021 at Fort Espagnol and in 2022 at Kerouarc’h. Overall, during this period, the extent of the meadow at Fort Espagnol increased by approximately 50% and by about 90% at Kerouarc’h (<a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> A). The density of the meadow remained relatively constant between 2016 and 2020 at both sites before increasing to 54% of the median SPC in 2023 at Fort Espagnol and 63% in 2022 at Kerouarc’h (<a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> B). The year 2020 is an exception to these trends due to green algae covering the meadow in August, which impeded the detection of the underlying seagrass with remote sensing techniques.</p>
 <div id="cell-fig-Extent" class="cell">
 <div class="cell-output-display">
-<div id="fig-Extent" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-Extent" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-Extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="Figs/Figure2.png" class="lightbox" data-glightbox="description: .lightbox-desc-2" data-gallery="quarto-lightbox-gallery-2"><img src="Figs/Figure2.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<a href="Figs/Figure2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge."><img src="Figs/Figure2.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative sesgrass extent of each site. 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge.
+Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="hidden" aria-hidden="true">
-<span class="glightbox-desc lightbox-desc-1">Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2023 in Fort Espagnol and Kerouarc’h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. SPC values at the sampling points are provided at the bottom left corner of the plot if SPC is greater than 20%.</span>
-<span class="glightbox-desc lightbox-desc-2">Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative sesgrass extent of each site. 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge.</span>
+</section>
+<section id="monthly-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="monthly-data"><span class="header-section-number">2.3</span> Monthly data</h2>
+<div id="cell-fig-Pheno" class="cell">
+<div class="cell-output-display">
+<div id="fig-Pheno" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Pheno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Figs/Figure3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Evolution of the seagrass cover at Kerouarc’h and Fort Espagnol during 2022 and 2023"><img src="Figs/Figure3.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Pheno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Evolution of the seagrass cover at Kerouarc’h and Fort Espagnol during 2022 and 2023
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-Pheno" class="quarto-xref">Figure&nbsp;3</a> shows a strong seasonal variation in seagrass cover at both sites. Seagrass cover is nearly absent during winter and begins to increase in early summer (July), reaching peak extent and density around September. Kerouarc’h hosts the largest meadows, covering more than 40 hectares on August 29, 2022, while Fort Espagnol reaches a maximum extent of 2.5 hectares during the same period.</p>
 
 </section>
 </section>
@@ -356,228 +451,242 @@ Zoffoli, Maria Laura, Pierre Gernez, Philippe Rosa, Anthony Le Bris, Vittorio E 
 </div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -585,210 +694,193 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
-</div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":false,"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
         }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
       }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
     }
   });
-
-};
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
 
 

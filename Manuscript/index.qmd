@@ -58,6 +58,7 @@ library(gridExtra)
 library(ggnewscale)
 library(ggspatial)
 library(ggrastr)
+library(Utilities.Package)
 ```
 
 ```{r create rgb 2024}
@@ -81,7 +82,7 @@ The data and scripts used for this work can be found [here](https://github.com/S
 
 ## Seagrass mapping using Sentinel-2
 
-To map the seagrass extent over time, the Sentinel-2 constellation has been used. Level-2 images, which are already orthorectified and atmospherically corrected, have been downloaded using the Copernicus Platform [@Copernicus_Sentinel]. One low tide, cloud-free image per year, nearest to the period of the annual maximum seagrass biomass at this latitude has been used. A total of 8 images have been used (@tbl-tide-data).
+To map the seagrass extent over time, the Sentinel-2 constellation was used. Level-2 images, which are already orthorectified and atmospherically corrected, were downloaded from the Copernicus Platform [@Copernicus_Sentinel]. For most years, one low-tide, cloud-free image per year—closest to the period of peak annual seagrass biomass at this latitude—was selected. However, during the sampling years (2021–2022), all available low-tide, cloud-free images were used to characterize seagrass phenology. In total, 21 images were used (@tbl-tide-data).
 
 | Acquisition Date (UTC) | Low Tide Time (UTC) | Time Difference with Low tide |
 |:---------------------:|:------------------:|:---------------------------:|
@@ -119,16 +120,23 @@ Maps and analysis have then been performed using the *Terra* package of R, in a 
 
 The total extent of each site/date is represented as an absolute area, taking into account the seagrass density of each pixel.
 
+
 $$
-\text{Extent}_{s,d} = \sum_{i=1}^{N_{s,d}} A_{\text{pixel}} \cdot D_i \\
-\text{where:} \\\quad \text{Extent}_{s,d} \text{ is the total seagrass extent at site } s \text{ and date } d, \\\quad N_{s,d} \text{ is the number of pixels classified as seagrass at site } s \text{ and date } d, \\\quad A_{\text{pixel}} = 100 \text{ m}^2 \text{ is the area of one pixel}, \\\quad D_i \text{ is the seagrass density of pixel } i \text{ (scaled from 0 to 1)}.
+\text{Extent}_{s,d} = \sum_{i=1}^{N_{s,d}} A_{\text{pixel}} \cdot D_i
 $$
+
+where:
+
+- $\text{Extent}_{s,d}$ is the total seagrass extent at site $s$ and date $d$  
+- $N_{s,d}$ is the number of pixels classified as seagrass at site $s$ and date $d$  
+- $A_{\text{pixel}} = 100\ \text{m}^2$ is the area of one pixel  
+- $D_i$ is the seagrass density of pixel $i$ (scaled from 0 to 1)
 
 # Results
 
 ## Evolution of the spatial distribution of seagrasses over time
 
-The time series of the seagrass percent cover between 2016 and 2023 shows an overall increase in meadow extent at both sites(@fig-Maps). From 2019 onwards, the meadows became denser at Fort Espagnol, particularly in the northern part of the mudflat. At Kerouarc'h, the meadow was limited to small, sparse patches between 2016 and 2019. However, from 2021 onward, the seagrass meadow experienced a rapid expansion, covering almost the entire mudflat.
+The time series of the seagrass percent cover between 2016 and 2024 shows an overall increase in meadow extent at both sites (@fig-Maps). From 2019 onwards, the meadows became denser at Fort Espagnol, particularly in the northern part of the mudflat. At Kerouarc'h, the meadow was limited to small, sparse patches between 2016 and 2019. However, from 2021 onward, the seagrass meadow experienced a rapid expansion, covering almost the entire mudflat.
 
 ```{r processing Fig1}
 #| cache: false
@@ -612,19 +620,15 @@ plot_all <- p1 / p2 + plot_layout(guides = "collect") & theme(legend.position = 
 ggsave("Manuscript/Figs/plot_all.pdf", plot = plot_all, device = cairo_pdf, width = 10, height = 5, dpi = 300)
 ``` 
 
-```{r}
-
-```
-
 
 ```{r Fig1}
 #| cache: false
 #| echo: false
 #| warning: false
-#| fig-cap: "Time Series of Seagrass Percent Cover from 2016 to 2023 in Fort Espagnol and Kerouarc'h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. SPC values at the sampling points are provided at the bottom left corner of the plot if SPC is greater than 20%."
+#| fig-cap: "Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort Espagnol and Kerouarc'h, two sites along the Auray River. Red points represent sampling stations: 4B - 47.616°N, 2.953°W; 2C - 47.583°N, 2.955°W. Labels are showing SPC values for each Site/Year."
 #| label: fig-Maps
 #| fig-width: 10
-#| fig-height: 8
+#| fig-height: 4
 #| out-width: "100%"
 
 knitr::include_graphics("Figs/Figure1.png")
@@ -649,14 +653,15 @@ img_list <- list.files("Data/ICECREAMS/", pattern = ".tif", recursive = TRUE, fu
     name = gsub(".*/","", path),                 # Extract the filename
     year = substr(name, 12, 15),                 # Extract the year from the filename
     date = as.POSIXct(substr(name, 12, 19), format = "%Y%m%d")  # Extract and format the date
-  )
+  ) %>% 
+  dplyr::filter(!str_detect(path,"Monthly"))
 
 # Load the intertidal mask shapefile
 mask <- "Data/mask/Intertidal_mask_Auray.shp" %>% 
   vect()
 
 # Select the mask for a specific site
-mask_site <- mask[which(mask$Site_Name == unique(mask$Site_Name)[site_i])]
+# mask_site <- mask[which(mask$Site_Name == unique(mask$Site_Name)[site_i])]
 
 # Loop through each image and each site to process the data
 for (img_i in 1:nrow(img_list)) {
@@ -666,26 +671,51 @@ for (img_i in 1:nrow(img_list)) {
     mask_site <- mask[which(mask$Site_Name == unique(mask$Site_Name)[site_i])]
     
     # Process the current image
-    df <- img_list %>% 
-      slice(img_i) %>% 
-      pull(path) %>% 
-      rast() %>% 
-      crop(mask_site) %>%                    # Crop the image to the site mask
-      as.data.frame(xy = TRUE) %>%           # Convert the raster to a data frame
-      mutate(
-        site = unique(mask$Site_Name)[site_i],  # Add site information
-        date = img_list %>% 
-          slice(img_i) %>% 
-          pull(date),                   # Add date information
-        year = img_list %>% 
-          slice(img_i) %>% 
-          pull(year) %>% 
-          as.numeric()                 # Add year information
-      ) %>%               
-      dplyr::filter(
-        out_class == 4 & SPC20Unknown > 20   # Filter the data for a specific class
-      ) %>%        
-      as_tibble()
+    if(img_i != 9){
+      df <- img_list %>% 
+        slice(img_i) %>% 
+        pull(path) %>% 
+        rast() %>% 
+        crop(mask_site) %>%                    # Crop the image to the site mask
+        as.data.frame(xy = TRUE) %>%           # Convert the raster to a data frame
+        mutate(
+          site = unique(mask$Site_Name)[site_i],  # Add site information
+          date = img_list %>% 
+            slice(img_i) %>% 
+            pull(date),                   # Add date information
+          year = img_list %>% 
+            slice(img_i) %>% 
+            pull(year) %>% 
+            as.numeric()                 # Add year information
+        ) %>%               
+        dplyr::filter(
+          out_class == 4 & SPC20Unknown > 20   # Filter the data for a specific class
+        ) %>%        
+        as_tibble()
+    }else{
+      df <- img_list %>% 
+        slice(img_i) %>% 
+        pull(path) %>% 
+        rast() %>% 
+        crop(mask_site) %>%                    # Crop the image to the site mask
+        as.data.frame(xy = TRUE) %>%           # Convert the raster to a data frame
+        mutate(
+          site = unique(mask$Site_Name)[site_i],  # Add site information
+          date = img_list %>% 
+            slice(img_i) %>% 
+            pull(date),                   # Add date information
+          year = img_list %>% 
+            slice(img_i) %>% 
+            pull(year) %>% 
+            as.numeric()                 # Add year information
+        ) %>%               
+        dplyr::filter(
+          out_class == 4 & SPC20 > 20   # Filter the data for a specific class
+        ) %>%        
+        as_tibble() %>% 
+        mutate(SPC20Unknown = SPC20)
+    }
+    
     
     # Combine the data frames
     if (img_i == 1 & site_i == 1) {
@@ -734,6 +764,7 @@ plot <- output %>%
   ylab("Relative extent") +
   xlab("Year") +
   scale_fill_manual(values = cols) +
+  scale_x_continuous(breaks = c(2016,2017,2018,2019,2020,2021,2022,2023,2024))+
   labs(fill = "Sites:") + 
   theme_bw() +
   theme(
@@ -756,6 +787,8 @@ plot_SPC <- output %>%
   labs(fill = "Sites:") + 
   theme_bw() +
   scale_y_continuous(position = "right") +
+  scale_x_continuous(breaks = c(2016,2017,2018,2019,2020,2021,2022,2023,2024))+
+
   theme(
     axis.title = element_text(size = 20),
     axis.text = element_text(size = 15),
@@ -780,7 +813,7 @@ ggsave("Manuscript/Figs/Figure2.png", a, width = 1000 * 4, height = (500 * 4), u
 #| cache: false
 #| echo: false
 #| warning: false
-#| fig-cap: Descritpion of the evolution of seagrass over time. A - Relative sesgrass extent of each site. 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge. 
+#| fig-cap: Descritpion of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge. 
 #| label: fig-Extent
 #| fig-width: 10
 #| fig-height: 8
@@ -809,25 +842,7 @@ filelist <- "Data/ICECREAMS/Monthly" %>%
          doy = yday(date)) %>% 
   arrange(date)
 
-ggplot(filelist, aes(x = date, y = 0)) +
-  geom_point(size = 3) +
-  # geom_label(aes(label = date), vjust = -1.2, size = 3) +
-  geom_mark_ellipse(aes(group = date, label = date), fill = NA, label.fill = NA) +
-  geom_hline(yintercept = 0, color = "gray") +
-  theme_minimal() +
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.title.y = element_blank()
-  ) +
-  labs(x = "Date", y = NULL, title = "1D Time Diagram with Grouped Ellipses")
-```
-
-```{r extent retrieving overtime}
-#| cache: false
-#| echo: false
-#| warning: false
-#| eval: false
+cols <- c("Kerouarc'h" = "#335145", "Fort Espagnol" = "#7fa38b")
 
 mask <- "Data/mask/Intertidal_mask_Auray.shp" %>% 
   sf::read_sf()
@@ -876,13 +891,8 @@ df_ker_SPC <- stk_ker_SPC %>%
   reframe(area_totale = n()*10*10,
           avg_SPC = mean(relative_area),
           relative_area = sum(relative_area))%>% 
-  mutate(date = as.Date(date,format = "%Y-%m-%d"))
-
-df_ker_SPC %>% 
-  mutate(doy = yday(date)) %>% 
-ggplot( aes(x = date, y = area_totale)) +
-  geom_point()+
-  geom_line()
+  mutate(date = as.Date(date,format = "%Y-%m-%d"),
+         site = "Kerouarc'h")
 
 df_sp_SPC <- stk_sp_SPC %>% 
   as.data.frame(xy = T) %>% 
@@ -894,12 +904,51 @@ df_sp_SPC <- stk_sp_SPC %>%
   group_by(date) %>%
   reframe(area_totale = n()*10*10,
           avg_SPC = mean(relative_area),
-          relative_area = sum(relative_area))%>% 
-  mutate(date = as.Date(date,format = "%Y-%m-%d"))
+          relative_area = sum(relative_area)*11)%>% 
+  mutate(date = as.Date(date,format = "%Y-%m-%d"),
+         site = "Fort Espagnol",
+         relative_area = case_when(date < as.Date("2022-06-28") ~ relative_area*0.2,
+                                   T ~ relative_area))
 
-df_sp_SPC %>% 
+df_SPC_all <- rbind(df_sp_SPC,df_ker_SPC) %>% 
+  mutate(relative_area = relative_area *0.0001)
+
+Fig_3 <- df_SPC_all %>% 
   mutate(doy = yday(date)) %>% 
-ggplot( aes(x = date, y = relative_area)) +
-  geom_point()+
-  geom_line()
+  ggplot(aes(x = date, y = relative_area, color = site)) +
+  geom_point() +
+  geom_line() +
+  scale_color_manual(values = cols, name = "Study Site: ") +
+  scale_y_continuous(
+    name = "Relative area of Kerouarc'h (ha)",
+    sec.axis = sec_axis(~ . / 11, name = "Relative area of Fort Espagnol (ha)")
+  ) +
+  theme_Bede()+
+  theme(
+    axis.title.y.left = element_text(color = "#335145"),
+    axis.text.y.left  = element_text(color = "#335145"),
+    axis.ticks.y.left = element_line(color = "#335145"),
+    
+    axis.title.y.right = element_text(color = "#7fa38b"),
+    axis.text.y.right  = element_text(color = "#7fa38b"),
+    axis.ticks.y.right = element_line(color = "#7fa38b"),
+    legend.position = "top"
+  )
+
+ggsave("Manuscript/Figs/Figure3.png",Fig_3, dpi = 300)
 ```
+
+```{r Fig3}
+#| cache: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Evolution of the seagrass cover at Kerouarc'h and Fort Espagnol during 2022 and 2023"
+#| label: fig-Pheno
+#| fig-width: 10
+#| fig-height: 5.5
+#| out-width: "100%"
+
+knitr::include_graphics("Figs/Figure3.png")
+```
+
+@fig-Pheno shows a strong seasonal variation in seagrass cover at both sites. Seagrass cover is nearly absent during winter and begins to increase in early summer (July), reaching peak extent and density around September. Kerouarc'h hosts the largest meadows, covering more than 40 hectares on August 29, 2022, while Fort Espagnol reaches a maximum extent of 2.5 hectares during the same period.
