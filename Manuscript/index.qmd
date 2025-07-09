@@ -941,6 +941,7 @@ Fig_3 <- df_SPC_all %>%
     axis.title.y.right = element_text(color = "#7fa38b", size = 15),
     axis.text.y.right  = element_text(color = "#7fa38b", size = 13),
     axis.ticks.y.right = element_line(color = "#7fa38b"),
+    axis.text.x  = element_text(size = 13),
     legend.position = "top",
     legend.text = element_text(size = 15),
     legend.title = element_text(size = 15)
