@@ -935,6 +935,7 @@ Fig_3 <- df_SPC_all %>%
   xlab("Date")+
   theme(
     axis.title.y.left = element_text(color = "#335145", size = 15),
+    axis.title.x = element_text( size = 15),
     axis.text.y.left  = element_text(color = "#335145", size = 13),
     axis.ticks.y.left = element_line(color = "#335145"),
     
