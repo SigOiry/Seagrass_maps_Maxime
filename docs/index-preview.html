@@ -7,7 +7,7 @@
 
     <meta name="author" content="Simon Oiry">
     <meta name="author" content="Bede Ffinian Rowe Davies">
-    <meta name="dcterms.date" content="2025-07-08">
+    <meta name="dcterms.date" content="2025-07-09">
     <meta name="keywords" content="Remote Sensing, Sentinel-2, Seagrass">
 
     <title>Seagrass mapping in two mudflats in the Auray River</title>
@@ -197,10 +197,10 @@
 <meta name="citation_keywords" content="Remote Sensing,Sentinel-2,Seagrass">
 <meta name="citation_author" content="Simon Oiry">
 <meta name="citation_author" content="Bede Ffinian Rowe Davies">
-<meta name="citation_publication_date" content="2025-07-08">
-<meta name="citation_cover_date" content="2025-07-08">
+<meta name="citation_publication_date" content="2025-07-09">
+<meta name="citation_cover_date" content="2025-07-09">
 <meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-07-08">
+<meta name="citation_online_date" content="2025-07-09">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Copernicus open access hub;,citation_author=Copernicus;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://browser.dataspace.copernicus.eu/;">
 <meta name="citation_reference" content="citation_title=Monitoring vegetation systems in the great plains with ERTS;,citation_author=John Wilson Rouse;,citation_author=Rüdiger H Haas;,citation_author=John A Schell;,citation_author=Donald W Deering;,citation_author=others;,citation_publication_date=1974;,citation_cover_date=1974;,citation_year=1974;,citation_issue=1;,citation_volume=351;,citation_journal_title=NASA Spec. Publ;">
@@ -258,7 +258,7 @@
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">July 8, 2025</p>
+              <p class="date">July 9, 2025</p>
             </div>
           </div>
           
@@ -299,7 +299,7 @@
   <ul class="collapse">
   <li><a href="#evolution-of-the-spatial-distribution-of-seagrasses-over-time" id="toc-evolution-of-the-spatial-distribution-of-seagrasses-over-time" class="nav-link" data-scroll-target="#evolution-of-the-spatial-distribution-of-seagrasses-over-time"><span class="header-section-number">2.1</span> Evolution of the spatial distribution of seagrasses over time</a></li>
   <li><a href="#evolution-of-the-extent-and-density-of-the-meadow-over-time" id="toc-evolution-of-the-extent-and-density-of-the-meadow-over-time" class="nav-link" data-scroll-target="#evolution-of-the-extent-and-density-of-the-meadow-over-time"><span class="header-section-number">2.2</span> Evolution of the extent and density of the meadow over time</a></li>
-  <li><a href="#monthly-data" id="toc-monthly-data" class="nav-link" data-scroll-target="#monthly-data"><span class="header-section-number">2.3</span> Monthly data</a></li>
+  <li><a href="#monthly-cover-of-seagrasses" id="toc-monthly-cover-of-seagrasses" class="nav-link" data-scroll-target="#monthly-cover-of-seagrasses"><span class="header-section-number">2.3</span> Monthly cover of seagrasses</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1062,7 +1062,8 @@ Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort E
 </section>
 <section id="evolution-of-the-extent-and-density-of-the-meadow-over-time" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="evolution-of-the-extent-and-density-of-the-meadow-over-time"><span class="header-section-number">2.2</span> Evolution of the extent and density of the meadow over time</h2>
-<p>The maximum total extent of seagrass was reached in 2021 at Fort Espagnol and in 2022 at Kerouarc’h. Overall, during this period, the extent of the meadow at Fort Espagnol increased by approximately 50% and by about 90% at Kerouarc’h (<a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> A). The density of the meadow remained relatively constant between 2016 and 2020 at both sites before increasing to 54% of the median SPC in 2023 at Fort Espagnol and 63% in 2022 at Kerouarc’h (<a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> B). The year 2020 is an exception to these trends due to green algae covering the meadow in August, which impeded the detection of the underlying seagrass with remote sensing techniques.</p>
+<p><a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> A) shows the temporal evolution of seagrass meadow extent at both sites. From 2016 onwards, the extent steadily increased, reaching a maximum in 2021 at Fort Espagnol and in 2022 at Kerouarc’h. The only exception to this trend occurred in 2020, due to the presence of green algae overlaying the meadow, which led to an underestimation of its actual extent in the satellite imagery. After reaching their respective peaks, the extent slightly declined at both locations in the following years.</p>
+<p><a href="#fig-Extent" class="quarto-xref">Figure&nbsp;2</a> B) shows the density of meadow over time. Cover remained relatively stable from 2016 to 2020, then increased sharply at both sites, reaching a maximum average of 72% per pixel at Kerouarc’h in 2024 and 54% at Fort Espagnol in 2023. In 2024, however, a marked decline in density is observed at Fort Espagnol, despite the extent of the meadow remaining relatively high.</p>
 <div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all .tif files in the "Data/ICECREAMS/" directory, including subdirectories, and convert to a tibble</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>img_list <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"Data/ICECREAMS/"</span>, <span class="at">pattern =</span> <span class="st">".tif"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
@@ -1158,7 +1159,7 @@ Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort E
 <span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">unique</span>(output<span class="sc">$</span>site))</span>
 <span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Define color scheme for sites</span></span>
-<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Kerouarc'h"</span> <span class="ot">=</span> <span class="st">"#335145"</span>, <span class="st">"Fort Espagnol"</span> <span class="ot">=</span> <span class="st">"#a9d8b8"</span>)</span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Kerouarc'h (2C)"</span> <span class="ot">=</span> <span class="st">"#335145"</span>, <span class="st">"Fort Espagnol (4B)"</span> <span class="ot">=</span> <span class="st">"#a9d8b8"</span>)</span>
 <span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare area data again (seems redundant, might be a mistake)</span></span>
 <span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> mask <span class="sc">%&gt;%</span> </span>
@@ -1171,59 +1172,63 @@ Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort E
 <span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for relative seagrass extent</span></span>
 <span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> output <span class="sc">%&gt;%</span> </span>
-<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, site) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">seagrass_area =</span> <span class="fu">n</span>() <span class="sc">*</span> <span class="dv">100</span> <span class="sc">*</span> (<span class="dv">10</span><span class="sc">^-</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relative_surface =</span> seagrass_area <span class="sc">/</span> <span class="fu">max</span>(seagrass_area)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(area, <span class="at">by =</span> <span class="st">"site"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> relative_surface, <span class="at">fill =</span> site), <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(), <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2015.5</span>, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">label =</span> <span class="st">"A"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Relative extent"</span>) <span class="sc">+</span></span>
-<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span></span>
-<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
-<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>,<span class="dv">2022</span>,<span class="dv">2023</span>,<span class="dv">2024</span>))<span class="sc">+</span></span>
-<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Sites:"</span>) <span class="sc">+</span> </span>
-<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
-<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
-<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
-<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
-<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
-<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot of SPC</span></span>
-<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a>plot_SPC <span class="ot">&lt;-</span> output <span class="sc">%&gt;%</span> </span>
-<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> SPC20Unknown, <span class="at">fill =</span> site, <span class="at">group =</span> <span class="fu">interaction</span>(site, year)), <span class="at">outlier.alpha =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2015.5</span>, <span class="at">y =</span> <span class="dv">100</span>, <span class="at">label =</span> <span class="st">"B"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Seagrass Cover (%)"</span>) <span class="sc">+</span></span>
-<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span></span>
-<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
-<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Sites:"</span>) <span class="sc">+</span> </span>
-<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"right"</span>) <span class="sc">+</span></span>
-<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>,<span class="dv">2022</span>,<span class="dv">2023</span>,<span class="dv">2024</span>))<span class="sc">+</span></span>
-<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
-<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
-<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
-<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
-<span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
-<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a>stat_boxplot <span class="ot">&lt;-</span> output <span class="sc">%&gt;%</span> </span>
-<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,year) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">med =</span> <span class="fu">median</span>(SPC20Unknown))</span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">case_when</span>(site <span class="sc">==</span> <span class="st">"Kerouarc'h"</span> <span class="sc">~</span> <span class="st">"Kerouarc'h (2C)"</span>,</span>
+<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a>                          T <span class="sc">~</span> <span class="st">"Fort Espagnol (4B)"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, site) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">seagrass_area =</span> <span class="fu">n</span>() <span class="sc">*</span> <span class="dv">100</span> <span class="sc">*</span> (<span class="dv">10</span><span class="sc">^-</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relative_surface =</span> seagrass_area <span class="sc">/</span> <span class="fu">max</span>(seagrass_area)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(area, <span class="at">by =</span> <span class="st">"site"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> relative_surface, <span class="at">fill =</span> site), <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(), <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2015.5</span>, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">label =</span> <span class="st">"A"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Relative extent"</span>) <span class="sc">+</span></span>
+<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
+<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>,<span class="dv">2022</span>,<span class="dv">2023</span>,<span class="dv">2024</span>))<span class="sc">+</span></span>
+<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Sites:"</span>) <span class="sc">+</span> </span>
+<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot of SPC</span></span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a>plot_SPC <span class="ot">&lt;-</span> output <span class="sc">%&gt;%</span> </span>
+<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">case_when</span>(site <span class="sc">==</span> <span class="st">"Kerouarc'h"</span> <span class="sc">~</span> <span class="st">"Kerouarc'h (2C)"</span>,</span>
+<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a>                          T <span class="sc">~</span> <span class="st">"Fort Espagnol (4B)"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> SPC20Unknown, <span class="at">fill =</span> site, <span class="at">group =</span> <span class="fu">interaction</span>(site, year)), <span class="at">outlier.alpha =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2015.5</span>, <span class="at">y =</span> <span class="dv">100</span>, <span class="at">label =</span> <span class="st">"B"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Seagrass Cover (%)"</span>) <span class="sc">+</span></span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
+<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Sites:"</span>) <span class="sc">+</span> </span>
+<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">position =</span> <span class="st">"right"</span>) <span class="sc">+</span></span>
+<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>,<span class="dv">2022</span>,<span class="dv">2023</span>,<span class="dv">2024</span>))<span class="sc">+</span></span>
+<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>),</span>
+<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
+<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the two plots and save the figure</span></span>
-<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> plot <span class="sc">+</span> plot_SPC</span>
-<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Output/Figs/Figure2.png"</span>, a, <span class="at">width =</span> <span class="dv">1000</span> <span class="sc">*</span> <span class="dv">4</span>, <span class="at">height =</span> (<span class="dv">500</span> <span class="sc">*</span> <span class="dv">4</span>), <span class="at">units =</span> <span class="st">"px"</span>)</span>
-<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Manuscript/Figs/Figure2.png"</span>, a, <span class="at">width =</span> <span class="dv">1000</span> <span class="sc">*</span> <span class="dv">4</span>, <span class="at">height =</span> (<span class="dv">500</span> <span class="sc">*</span> <span class="dv">4</span>), <span class="at">units =</span> <span class="st">"px"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a>stat_boxplot <span class="ot">&lt;-</span> output <span class="sc">%&gt;%</span> </span>
+<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,year) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">med =</span> <span class="fu">median</span>(SPC20Unknown))</span>
+<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the two plots and save the figure</span></span>
+<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> plot <span class="sc">+</span> plot_SPC</span>
+<span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Output/Figs/Figure2.png"</span>, a, <span class="at">width =</span> <span class="dv">1000</span> <span class="sc">*</span> <span class="dv">4</span>, <span class="at">height =</span> (<span class="dv">500</span> <span class="sc">*</span> <span class="dv">4</span>), <span class="at">units =</span> <span class="st">"px"</span>)</span>
+<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Manuscript/Figs/Figure2.png"</span>, a, <span class="at">width =</span> <span class="dv">1000</span> <span class="sc">*</span> <span class="dv">4</span>, <span class="at">height =</span> (<span class="dv">500</span> <span class="sc">*</span> <span class="dv">4</span>), <span class="at">units =</span> <span class="st">"px"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="cell-fig-Extent" class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"Figs/Figure2.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1231,18 +1236,18 @@ Figure&nbsp;1: Time Series of Seagrass Percent Cover from 2016 to 2024 in Fort E
 <div id="fig-Extent" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-Extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
-<a href="Figs/Figure2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge."><img src="Figs/Figure2.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<a href="Figs/Figure2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Description of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge."><img src="Figs/Figure2.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge.
+Figure&nbsp;2: Description of the evolution of seagrass over time. A - Relative seagrass extent of each site. A value of 1 means maximum extent of the time serie for the site. B - Boxplot of the density of seagrass for each site at each date. The lower and upper hinges correspond to the first and third quartiles (the 25th and 75th percentiles). Whiskers are to 1.5 * IQR (Inter-Quartile Range) from the hinge.
 </figcaption>
 </figure>
 </div>
 </div>
 </div></div>
 </section>
-<section id="monthly-data" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="monthly-data"><span class="header-section-number">2.3</span> Monthly data</h2>
+<section id="monthly-cover-of-seagrasses" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="monthly-cover-of-seagrasses"><span class="header-section-number">2.3</span> Monthly cover of seagrasses</h2>
 <div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)  <span class="co"># for geom_mark_ellipse</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1256,7 +1261,7 @@ Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative 
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">doy =</span> <span class="fu">yday</span>(date)) <span class="sc">%&gt;%</span> </span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Kerouarc'h"</span> <span class="ot">=</span> <span class="st">"#335145"</span>, <span class="st">"Fort Espagnol"</span> <span class="ot">=</span> <span class="st">"#7fa38b"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Kerouarc'h (2C)"</span> <span class="ot">=</span> <span class="st">"#335145"</span>, <span class="st">"Fort Espagnol (4B)"</span> <span class="ot">=</span> <span class="st">"#7fa38b"</span>)</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">&lt;-</span> <span class="st">"Data/mask/Intertidal_mask_Auray.shp"</span> <span class="sc">%&gt;%</span> </span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">read_sf</span>()</span>
@@ -1328,28 +1333,34 @@ Figure&nbsp;2: Descritpion of the evolution of seagrass over time. A - Relative 
 <span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relative_area =</span> relative_area <span class="sc">*</span><span class="fl">0.0001</span>)</span>
 <span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a>Fig_3 <span class="ot">&lt;-</span> df_SPC_all <span class="sc">%&gt;%</span> </span>
-<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">doy =</span> <span class="fu">yday</span>(date)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> relative_area, <span class="at">color =</span> site)) <span class="sc">+</span></span>
-<span id="cb22-87"><a href="#cb22-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> cols, <span class="at">name =</span> <span class="st">"Study Site: "</span>) <span class="sc">+</span></span>
-<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Relative area of Kerouarc'h (ha)"</span>,</span>
-<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">/</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"Relative area of Fort Espagnol (ha)"</span>)</span>
-<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_Bede</span>()<span class="sc">+</span></span>
-<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.left =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#335145"</span>),</span>
-<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y.left  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#335145"</span>),</span>
-<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y.left =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#335145"</span>),</span>
-<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#7fa38b"</span>),</span>
-<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y.right  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#7fa38b"</span>),</span>
-<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y.right =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#7fa38b"</span>),</span>
-<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
-<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Manuscript/Figs/Figure3.png"</span>,Fig_3, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">case_when</span>(site <span class="sc">==</span> <span class="st">"Kerouarc'h"</span> <span class="sc">~</span> <span class="st">"Kerouarc'h (2C)"</span>,</span>
+<span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a>                          T <span class="sc">~</span> <span class="st">"Fort Espagnol (4B)"</span>)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb22-87"><a href="#cb22-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">doy =</span> <span class="fu">yday</span>(date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> relative_area, <span class="at">color =</span> site)) <span class="sc">+</span></span>
+<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> cols, <span class="at">name =</span> <span class="st">"Study Site: "</span>) <span class="sc">+</span></span>
+<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Relative area of Kerouarc'h (ha)"</span>,</span>
+<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">/</span> <span class="dv">11</span>, <span class="at">name =</span> <span class="st">"Relative area of Fort Espagnol (ha)"</span>)</span>
+<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_Bede</span>()<span class="sc">+</span></span>
+<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Date"</span>)<span class="sc">+</span></span>
+<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.left =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#335145"</span>, <span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y.left  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#335145"</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y.left =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#335145"</span>),</span>
+<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#7fa38b"</span>, <span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y.right  =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#7fa38b"</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y.right =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#7fa38b"</span>),</span>
+<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb22-107"><a href="#cb22-107" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb22-108"><a href="#cb22-108" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)</span>
+<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-111"><a href="#cb22-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-112"><a href="#cb22-112" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"Manuscript/Figs/Figure3.png"</span>,Fig_3, <span class="at">dpi =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="cell-fig-Pheno" class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"Figs/Figure3.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
