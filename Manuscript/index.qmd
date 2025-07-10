@@ -132,6 +132,12 @@ where:
 - $A_{\text{pixel}} = 100\ \text{m}^2$ is the area of one pixel  
 - $D_i$ is the seagrass density of pixel $i$ (scaled from 0 to 1)
 
+The uncertainty for each image was calculated as the inverse of the mean of the per pixel probabilities from the ICES CREAMS model ($\bar{p}$) divided by the global accuracy when applied to validation data ($G_{\alpha}$). 
+
+$$
+\tau = \frac{1 - \bar{p}}{G_{\alpha}}
+$$
+
 # Results
 
 ## Evolution of the spatial distribution of seagrasses over time
@@ -743,33 +749,46 @@ area <- mask %>%
 # Define color scheme for sites
 cols <- c("Kerouarc'h (2C)" = "#335145", "Fort Espagnol (4B)" = "#a9d8b8")
 
-# Prepare area data again (seems redundant, might be a mistake)
-area <- mask %>% 
-  sf::st_as_sf() %>% 
-  sf::st_area() %>% 
-  as.numeric() %>% 
-  as.data.frame() %>% 
-  rename(area = ".") %>% 
-  mutate(site = unique(output$site))
 
 # Create the plot for relative seagrass extent
 plot <- output %>% 
   mutate(site = case_when(site == "Kerouarc'h" ~ "Kerouarc'h (2C)",
                           T ~ "Fort Espagnol (4B)")) %>% 
   group_by(year, site) %>% 
-  reframe(seagrass_area = n() * 100 * (10^-6)) %>%
+  reframe(seagrass_area = n() * 100 * (10^-6),
+          prob = (1-mean(class_probs, na.rm = T))/(0.91)) %>%
   ungroup() %>% 
   group_by(site) %>% 
-  mutate(relative_surface = seagrass_area / max(seagrass_area)) %>% 
-  left_join(area, by = "site") %>%
+  mutate(relative_surface = seagrass_area / max(seagrass_area), 
+         relative_prob = prob*relative_surface) %>% 
+  # left_join(area, by = "site") %>%
   ggplot() +
-  geom_histogram(aes(x = year, y = relative_surface, fill = site), stat = "identity", position = position_dodge(), alpha = 0.8, color = "black", linewidth = 0.5) +
+  geom_errorbar(aes(x = year,
+                    y = relative_surface,
+                    ymin = relative_surface-relative_prob,
+                    ymax = relative_prob+relative_surface,
+                    color = site ),
+             position = position_dodge(width = 0.3))+
+  geom_point(aes(x = year, 
+                 y = relative_surface, 
+                 fill = site),
+             shape = 21,
+             color = "black",
+             position = position_dodge(width = 0.3), 
+             size = 3)+
+  geom_line(aes(x = year, 
+                 y = relative_surface, 
+                 color = site),
+             position = position_dodge(width = 0.3))+
   annotate("text", x = 2015.5, y = 1, label = "A", size = 10) +
   ylab("Relative extent") +
   xlab("Year") +
   scale_fill_manual(values = cols) +
+  scale_color_manual(values = cols) +
+
   scale_x_continuous(breaks = c(2016,2017,2018,2019,2020,2021,2022,2023,2024))+
-  labs(fill = "Sites:") + 
+  labs(fill = "Sites:",
+       color = "Sites:") + 
   theme_bw() +
   theme(
     axis.title = element_text(size = 20),
@@ -871,7 +890,26 @@ for (i in 1:nrow(filelist)) {
   }
   
 }
+
 names(stk_SPC) <- filelist$date
+
+for (i in 1:nrow(filelist)) {
+  
+  if(i == 1){
+    stk_prob <- rast(filelist$path[i]) %>% 
+      dplyr::filter(SPC > 20)
+    stk_prob <- stk_prob$class_probs
+  }else{
+    a <- rast(filelist$path[i]) %>% 
+      dplyr::filter(SPC > 20)
+    a <- a$class_probs
+    
+    stk_prob <- c(stk_prob,a)
+  }
+  
+}
+
+names(stk_prob) <- filelist$date
 
 sp_mask <- mask %>% 
   dplyr::filter(Site_Name == "Fort Espagnol")
@@ -883,6 +921,12 @@ stk_sp_SPC <- stk_SPC %>%
   crop(sp_mask, mask = T)
 
 stk_ker_SPC <- stk_SPC %>% 
+  crop(ker_mask, mask = T)
+
+stk_sp_prob <- stk_prob %>% 
+  crop(sp_mask, mask = T)
+
+stk_ker_prob <- stk_prob %>% 
   crop(ker_mask, mask = T)
 
 
@@ -900,6 +944,17 @@ df_ker_SPC <- stk_ker_SPC %>%
   mutate(date = as.Date(date,format = "%Y-%m-%d"),
          site = "Kerouarc'h")
 
+df_ker_prob <- stk_ker_prob %>% 
+  as.data.frame(xy = T) %>% 
+  pivot_longer(-c(x,y),names_to = "date", values_to = "prob") %>% 
+  group_by(date) %>% 
+  reframe(uncertainty = (1-mean(prob, na.rm = T))/0.91) %>% 
+  ungroup() %>%
+  mutate(date = as.Date(date,format = "%Y-%m-%d"),
+         site = "Kerouarc'h",
+         uncertainty = case_when(is.nan(uncertainty) ~ 0,
+                                 T ~ uncertainty))
+
 df_sp_SPC <- stk_sp_SPC %>% 
   as.data.frame(xy = T) %>% 
   pivot_longer(-c(x,y),names_to = "date", values_to = "SPC") %>% 
@@ -910,44 +965,59 @@ df_sp_SPC <- stk_sp_SPC %>%
   group_by(date) %>%
   reframe(area_totale = n()*10*10,
           avg_SPC = mean(relative_area),
-          relative_area = sum(relative_area)*11)%>% 
+          relative_area = sum(relative_area))%>% 
   mutate(date = as.Date(date,format = "%Y-%m-%d"),
          site = "Fort Espagnol",
          relative_area = case_when(date < as.Date("2022-06-28") ~ relative_area*0.2,
                                    T ~ relative_area))
 
-df_SPC_all <- rbind(df_sp_SPC,df_ker_SPC) %>% 
-  mutate(relative_area = relative_area *0.0001)
+df_sp_prob <- stk_sp_prob %>% 
+  as.data.frame(xy = T) %>% 
+  pivot_longer(-c(x,y),names_to = "date", values_to = "prob") %>% 
+  group_by(date) %>% 
+  reframe(uncertainty = (1-mean(prob, na.rm = T))/0.91) %>% 
+  ungroup() %>%
+  mutate(date = as.Date(date,format = "%Y-%m-%d"),
+         site = "Fort Espagnol",
+         uncertainty = case_when(is.nan(uncertainty) ~ 0,
+                                 T ~ uncertainty))
 
-Fig_3 <- df_SPC_all %>% 
+df_sp <- df_sp_SPC %>% 
+  left_join(df_sp_prob, by = c("date","site"))
+
+df_ker <- df_ker_SPC %>% 
+  left_join(df_ker_prob, by = c("date","site"))
+
+df_all <- rbind(df_sp,df_ker) %>% 
+  mutate(relative_area = relative_area*0.0001, 
+         ymin = relative_area - (relative_area*uncertainty),
+         ymax = relative_area + (relative_area*uncertainty))
+
+(Fig_3 <- df_all %>% 
   mutate(site = case_when(site == "Kerouarc'h" ~ "Kerouarc'h (2C)",
                           T ~ "Fort Espagnol (4B)")) %>%  
   mutate(doy = yday(date)) %>% 
-  ggplot(aes(x = date, y = relative_area, color = site)) +
-  geom_point() +
-  geom_line() +
+  ggplot(aes(x = date, y = relative_area, ymin = ymin, ymax = ymax, color = site, fill = site)) +
+  geom_point(show.legend = F, shape = 21, size = 3, color = "black") +
+  geom_line(show.legend = F) +
+  geom_errorbar(show.legend = F)+
   scale_color_manual(values = cols, name = "Study Site: ") +
+  scale_fill_manual(values = cols, name = "Study Site: ") +
   scale_y_continuous(
-    name = "Relative area of Kerouarc'h (ha)",
-    sec.axis = sec_axis(~ . / 11, name = "Relative area of Fort Espagnol (ha)")
-  ) +
+    name = "Area (ha)") +
   theme_Bede()+
+  facet_wrap(~site, scales = "free")+
   xlab("Date")+
   theme(
-    axis.title.y.left = element_text(color = "#335145", size = 15),
+    axis.title.y = element_text(size = 15),
     axis.title.x = element_text( size = 15),
-    axis.text.y.left  = element_text(color = "#335145", size = 13),
-    axis.ticks.y.left = element_line(color = "#335145"),
-    
-    axis.title.y.right = element_text(color = "#7fa38b", size = 15),
-    axis.text.y.right  = element_text(color = "#7fa38b", size = 13),
-    axis.ticks.y.right = element_line(color = "#7fa38b"),
+    axis.text.y  = element_text(size = 13),
     axis.text.x  = element_text(size = 13),
     legend.position = "top",
     legend.text = element_text(size = 15),
-    legend.title = element_text(size = 15)
-    
-  )
+    legend.title = element_text(size = 15),
+    strip.text = element_text(size = 15)
+  ))
 
 ggsave("Manuscript/Figs/Figure3.png",Fig_3, dpi = 200)
 
@@ -957,7 +1027,7 @@ ggsave("Manuscript/Figs/Figure3.png",Fig_3, dpi = 200)
 #| cache: false
 #| echo: false
 #| warning: false
-#| fig-cap: "Evolution of the seagrass cover at Kerouarc'h and Fort Espagnol during 2022 and 2023"
+#| fig-cap: "Evolution of the seagrass cover at Fort Espagnol (left) and at Kerouarc'h (right) during 2022 - 2023. Points with error bars show neural network estimated cumulative area and average uncertainty per satellite image."
 #| label: fig-Pheno
 #| fig-width: 10
 #| fig-height: 5.5

@@ -324,6 +324,15 @@ where:
   \(D_i\) is the seagrass density of pixel \(i\) (scaled from 0 to 1)
 \end{itemize}
 
+The uncertainty for each image was calculated as the inverse of the mean
+of the per pixel probabilities from the ICES CREAMS model (\(\bar{p}\))
+divided by the global accuracy when applied to validation data
+(\(G_{\alpha}\)).
+
+\[
+\tau = \frac{1 - \bar{p}}{G_{\alpha}}
+\]
+
 \section{Results}\label{results}
 
 \subsection{Evolution of the spatial distribution of seagrasses over
@@ -404,8 +413,10 @@ seagrasses}\label{monthly-cover-of-seagrasses}
 
 }
 
-\caption{\label{fig-Pheno}Evolution of the seagrass cover at Kerouarc'h
-and Fort Espagnol during 2022 and 2023}
+\caption{\label{fig-Pheno}Evolution of the seagrass cover at Fort
+Espagnol (left) and at Kerouarc'h (right) during 2022 - 2023. Points
+with error bars show neural network estimated cumulative area and
+average uncertainty per satellite image.}
 
 \end{figure}%
 
